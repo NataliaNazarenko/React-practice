@@ -1,7 +1,18 @@
+import React, { useState } from 'react';
+import './Home.css';
+
 const Home = () => {
+    const [count, setCount] = useState(0);
+
+    const increment = () => {
+        setCount(count + 1)
+    };
+
     return (
-        <div>
-            <h1>Home Page</h1>
+        <div className='container'>
+            <h1>Counter</h1>
+            <p>{count}</p>
+            <button onClick={increment}>Start</button>
         </div>
     );
 };
