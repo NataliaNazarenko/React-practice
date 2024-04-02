@@ -34,7 +34,7 @@ const Forma = () => {
     return (
         <div className='container'>
             {acc ? <AccountCard 
-                name={name} city={city} email={email} password={password} /> 
+                name={name} city={city} email={email} /> 
                 : <RegistrationForm 
                 handleChangeEmail={HandleChangeEmail}
                 handleChangeName={HandleChangeName}

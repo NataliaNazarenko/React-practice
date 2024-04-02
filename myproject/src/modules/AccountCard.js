@@ -1,7 +1,7 @@
 import React from 'react';
 import './Forma.css';
 
-const AccountCard = ({name, city}) => {
+const AccountCard = ({name, city, email}) => {
 
     return (
         <div className='container'>
@@ -11,6 +11,9 @@ const AccountCard = ({name, city}) => {
             </div>
             <div>
                 <p>City: {city}</p>
+            </div>
+            <div>
+                <p>Email: {email}</p>
             </div>
         </div>
     );

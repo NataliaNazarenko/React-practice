@@ -3,6 +3,28 @@ import './Forma.css';
 
 const RegistrationForm = ({name, city, email, password, handleChangeName, handleChangeCity, handleChangeEmail, handleChangePassword, onSubmitForm}) => {
 
+    const checkPass = (pass) => {
+        const beginWithoutDigit = /^\D.*$/;
+        const withoutSpecialChars = /^[^-() /]*$/;
+        const containsLetters = /^.*[a-zA-Z]+.*$/;
+
+        if (beginWithoutDigit.test(pass) && withoutSpecialChars.test(pass) && containsLetters.test(pass)) {
+            return true;
+        } else {
+            return false;
+        };
+    };
+
+    const checkEmail = (email) => {
+        const emailValidation = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        return emailValidation.test(email);
+    };
+
+    const validForm = () => {
+        return checkPass(password) && checkEmail(email);
+    };
+
     return (
         <div className='container'>
             <p>Registration Form</p>
@@ -23,7 +45,7 @@ const RegistrationForm = ({name, city, email, password, handleChangeName, handle
                     <label>Password</label>
                     <input type="password" value={password} onChange={event => handleChangePassword(event)} placeholder="Enter your password" />
                 </div>
-                <button onClick={onSubmitForm}>Submit</button>
+                {validForm() && <button onClick={onSubmitForm}>Submit</button>}
             </form>
         </div>
     );
