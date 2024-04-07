@@ -3,6 +3,7 @@ import Home from './modules/Home';
 import Forma from './modules/Forma';
 import { createElement } from 'react';
 import HelloWorldComponent from './modules/HelloWorldComponent';
+import MyClassComponent from './modules/MyClassComponent';
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     <div>
       {element}
       < HelloWorldComponent />
+      < MyClassComponent />
       < Home />
       < Forma />
     </div>
