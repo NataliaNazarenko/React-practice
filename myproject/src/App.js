@@ -1,15 +1,31 @@
 import './App.css';
 import Home from './modules/Home';
 import Forma from './modules/Forma';
-import { createElement } from 'react';
+import { createElement, useState } from 'react';
 import HelloWorldComponent from './modules/HelloWorldComponent';
 import MyClassComponent from './modules/MyClassComponent';
 
 
 function App() {
+  const [item, setItem] = useState(['First element']) // [item, setItem]
+  const [input, setInput] = useState('');
+
+  const onClickHandler = (input) => {
+    const updateElement = [...item, input];
+
+    setItem(updateElement);
+    setInput('');
+  };
+
+  const onChangeHandler = (event) => {
+    const value = event.target.value;
+    setInput(value);
+  };
+
   const element = createElement('h1',
   { className: 'greeting' },
   'Hello')
+
   return (
     <div>
       {element}
@@ -17,6 +33,11 @@ function App() {
       < MyClassComponent />
       < Home />
       < Forma />
+      <input type="text" value={input} onChange={onChangeHandler} />
+      <ul>
+        {item.map((element, index) => <li key={index}>{element} {index}</li>)}
+      </ul>
+      <button onClick={() => onClickHandler(input)}>Add New Element</button>
     </div>
   );
 }
