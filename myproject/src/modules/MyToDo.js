@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import _ from 'lodash';
 
 const MyToDo = () => {
     const [input, setInput] = useState('');
@@ -18,16 +17,6 @@ const MyToDo = () => {
         setItem([...item, input]); // setItem(input);
         setInput('');
     };
-
-    // useEffect(() => {
-    //     const debouncedOnChangeHandler = _.debounce(() => {
-    //         console.log(input); // Опрацьовуємо введений текст після затримки
-    //     }, 1000);
-
-    //     debouncedOnChangeHandler();
-
-    //     return debouncedOnChangeHandler.cancel; // Скасувати debounce при зміні компоненту
-    // }, [input]);
 
     return (
         <>
