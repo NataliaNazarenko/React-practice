@@ -4,6 +4,7 @@ import Forma from './modules/Forma';
 import { createElement, useState } from 'react';
 import HelloWorldComponent from './modules/HelloWorldComponent';
 import MyClassComponent from './modules/MyClassComponent';
+import MyToDo from './modules/MyToDo';
 
 
 function App() {
@@ -38,7 +39,9 @@ function App() {
         {item.map((element, index) => <li key={index}>{element} {index}</li>)}
       </ul>
       <button onClick={() => onClickHandler(input)}>Add New Element</button>
+      <MyToDo />
     </div>
+    
   );
 }
 
