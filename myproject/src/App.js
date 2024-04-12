@@ -5,6 +5,7 @@ import { createElement, useState } from 'react';
 import HelloWorldComponent from './modules/HelloWorldComponent';
 import MyClassComponent from './modules/MyClassComponent';
 import MyToDo from './modules/MyToDo';
+import RenderComponent from './modules/RenderComponent';
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
       </ul>
       <button onClick={() => onClickHandler(input)}>Add New Element</button>
       <MyToDo />
+      <RenderComponent />
     </div>
     
   );

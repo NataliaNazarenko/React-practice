@@ -14,14 +14,23 @@ const MyToDo = () => {
 
     const onClickHandler = () => {
         console.log(input);
+        if (input === '') {
+            return;
+        };
         setItem([...item, input]); // setItem(input);
         setInput('');
     };
 
+const onEnterHandler = (event) => {
+    if (event.key === 'Enter') {
+        onClickHandler();
+    };
+};
+
     return (
         <>
             <p>My ToDo</p>
-            <input onChange={onChangeHandler} placeholder='Enter to do' value={input} type='text'></input>
+            <input onKeyDown={onEnterHandler} onChange={onChangeHandler} placeholder='Enter to do' value={input} type='text'></input>
             <p>{index}</p>
             <ul>
             {item.map((element, index) => <li key={`${element}${index}`} value={index}>{element}</li>)}
