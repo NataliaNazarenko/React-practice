@@ -1,13 +1,16 @@
 import React from "react";
 import GrandChildComponent from './GrandChildComponent';
 
-const ListToDo = ({name}) => {
-    
+const ListToDo = (props) => {
+    console.log(props)
     return (
         <>
             
-            <li>{name}</li>
-            <GrandChildComponent newProp={name}/>
+            <li>{props.name}</li>
+            <p>{props.myName.name}</p>
+            <p>{props.myNameinArray[0]}</p>
+            <p>{props.MyFunctionName()}</p>
+            <GrandChildComponent newProp={props.name}/>
         </>
     );
 };

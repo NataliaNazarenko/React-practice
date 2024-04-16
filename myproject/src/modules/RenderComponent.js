@@ -20,6 +20,16 @@ const RenderComponent = () => {
     //     return <h1>Second Render</h1>;
     // };
 
+    const myName = {
+        name: 'Nata'
+    };
+
+    const myNameinArray = ['Nata'];
+
+    const MyFunctionName = () => {
+        return 'Nata'
+    };
+
 
     return (
         <div>
@@ -33,7 +43,11 @@ const RenderComponent = () => {
                 {toDo.map((item) => {
                 console.log(item);
                 return (
-                <ListToDo key={item.id} name={item.name} />
+                <ListToDo key={item.id} 
+                name={item.name} 
+                myName={myName} 
+                myNameinArray={myNameinArray} 
+                MyFunctionName={MyFunctionName}/>
                 );
                 })}
             </ul>
