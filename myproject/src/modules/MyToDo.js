@@ -2,30 +2,39 @@ import React, { useState } from 'react';
 
 const MyToDo = () => {
     const [input, setInput] = useState('');
-    const [item, setItem] = useState([]);
+    const [todos, setTodos] = useState([
+        { id: 1, name: 'Todo 1' },
+        { id: 2, name: 'Todo 2' },
+        { id: 3, name: 'Todo 3' }
+    ]);
 
-    const index = item.length;
+    const index = todos.length;
 
     const onChangeHandler = (event) => {
-        const value = event.target.value;
-        console.log(value);
-        setInput(value);
+        setInput(event.target.value);
     };
 
     const onClickHandler = () => {
-        console.log(input);
-        if (input === '') {
+        if (input.trim() === '') {
             return;
+        }
+        const newTodo = {
+            id: todos.length + 1,
+            name: input.trim()
         };
-        setItem([...item, input]); // setItem(input);
+        setTodos([...todos, newTodo]);
         setInput('');
     };
 
-const onEnterHandler = (event) => {
-    if (event.key === 'Enter') {
-        onClickHandler();
+    const onEnterHandler = (event) => {
+        if (event.key === 'Enter') {
+            onClickHandler();
+        }
     };
-};
+
+    const deleteTodo = (id) => {
+        setTodos(todos.filter(todo => todo.id !== id));
+    };
 
     return (
         <>
@@ -33,7 +42,12 @@ const onEnterHandler = (event) => {
             <input onKeyDown={onEnterHandler} onChange={onChangeHandler} placeholder='Enter to do' value={input} type='text'></input>
             <p>{index}</p>
             <ul>
-            {item.map((element, index) => <li key={`${element}${index}`} value={index}>{element}</li>)}
+                {todos.map(todo => (
+                    <li key={todo.id}>
+                        {`ID: ${todo.id}, Name: ${todo.name}`}
+                        <button type='button' onClick={() => deleteTodo(todo.id)}>Delete</button>
+                    </li>
+                ))}
             </ul>
             <button type='button' onClick={onClickHandler}>Add</button>
         </>
