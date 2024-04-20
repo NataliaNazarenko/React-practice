@@ -1,10 +1,11 @@
 import React from "react";
 
-const GrandChildComponent = ({name}) => {
-    console.log(name)
+const GrandChildComponent = (props) => {
+    console.log(props.name)
     return (
         <>
         <div>GrandChildComponent</div>
+        {props.children}
         </>
     )
 };

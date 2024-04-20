@@ -1,8 +1,14 @@
 import React from "react";
 import GrandChildComponent from './GrandChildComponent';
+import ButtonComponent from './ButtonComponent';
 
 const ListToDo = (props) => {
     console.log(props)
+
+    const handleDelete = () => {
+        console.log("delete button clicked")
+    };
+
     return (
         <>
             
@@ -10,7 +16,9 @@ const ListToDo = (props) => {
             <p>{props.myName.name}</p>
             <p>{props.myNameinArray[0]}</p>
             <p>{props.MyFunctionName()}</p>
-            <GrandChildComponent newProp={props.name}/>
+            <GrandChildComponent newProp={props.name}>
+                <ButtonComponent type="button" text="Delete" onClick={handleDelete}/>
+            </GrandChildComponent>
         </>
     );
 };
