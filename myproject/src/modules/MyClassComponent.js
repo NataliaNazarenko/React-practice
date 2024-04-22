@@ -6,8 +6,15 @@ class MyClassComponent extends Component {
         this.state = {
             name: 'I am a class component',
         };
+
+        console.log('MyClassComponent constructor');
     };
+    componentDidMount() {
+        console.log('MyClassComponent componentDidMount')
+    };
+    
     render() {
+        console.log('MyClassComponent render')
         return (
             <div>
                 <h1>{this.state.name}</h1>
