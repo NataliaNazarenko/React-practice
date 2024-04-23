@@ -12,6 +12,19 @@ class MyClassComponent extends Component {
     componentDidMount() {
         console.log('MyClassComponent componentDidMount')
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if(this.state.name !== nextState.name) {
+            return true;
+        };
+        return false;
+    };
+
+    componentDidUpdate(prevProps, prevState) {
+        if(this.state.name!== prevState.name) {
+            console.log('MyClassComponent componentDidUpdate')
+        };
+    };
     
     render() {
         console.log('MyClassComponent render')
