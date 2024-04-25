@@ -13,6 +13,7 @@ class MyToDoClass extends Component {
             todos: [...this.state.todos, { id: newIndex, name: this.state.input }],
             index: newIndex
         });
+        this.setState({ input: '' });
     };
 
     onChangeHandler = (e) => {
