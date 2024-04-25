@@ -6,6 +6,7 @@ import HelloWorldComponent from './modules/HelloWorldComponent';
 import MyClassComponent from './modules/MyClassComponent';
 import MyToDo from './modules/MyToDo';
 import RenderComponent from './modules/RenderComponent';
+import MyToDoClass from './modules/MyToDoClass';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
       <button onClick={() => onClickHandler(input)}>Add New Element</button>
       <MyToDo />
       <RenderComponent />
+      <MyToDoClass />
     </div>
     
   );
