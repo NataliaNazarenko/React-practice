@@ -12,6 +12,7 @@ import MyToDoClass from './modules/MyToDoClass';
 function App() {
   const [item, setItem] = useState(['First element']) // [item, setItem]
   const [input, setInput] = useState('');
+  const [isShowTimer, setIsShowTimer] = useState(false);
 
   const onClickHandler = (input) => {
     const updateElement = [...item, input];
@@ -41,9 +42,11 @@ function App() {
         {item.map((element, index) => <li key={index}>{element} {index}</li>)}
       </ul>
       <button onClick={() => onClickHandler(input)}>Add New Element</button>
-      <MyToDo />
+      
       <RenderComponent />
-      <MyToDoClass />
+      {isShowTimer ?  <MyToDoClass /> : <MyToDo />}
+      <button onClick={() => setIsShowTimer((prev) => !prev)}>Show Timer</button>
+     
     </div>
     
   );
