@@ -23,8 +23,28 @@ class MyToDoClass extends Component {
 
     deleteTodo = (id) => {
         this.setState({ todos: this.state.todos.filter(todo => todo.id !== id) });
-    }
+    };
+
+    componentDidMount() {
+        const lsToDos = localStorage.getItem('todos');
+        if(lsToDos) {
+            this.setState({ todos: JSON.parse(lsToDos) });
+        };
+        console.log('MyToDoClass mounted');
+    };
+
+    componentDidUpdate(prevProps, prevState) {
+        if(prevState.todos !== this.state.todos) {
+            console.log('MyToDoClass updated');
+            localStorage.setItem('todos', JSON.stringify(this.state.todos));
+        };
+    };
     
+    componentWillUnmount() {
+        console.log('MyToDoClass unmounted');
+    };
+    
+
     render() {        
         return (
             <>
