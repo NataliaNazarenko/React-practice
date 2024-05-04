@@ -1,18 +1,21 @@
 import './App.css';
 import Home from './modules/Home';
 import Forma from './modules/Forma';
-import { createElement, useState } from 'react';
+import { createElement, useState, useEffect } from 'react';
 import HelloWorldComponent from './modules/HelloWorldComponent';
 import MyClassComponent from './modules/MyClassComponent';
 import MyToDo from './modules/MyToDo';
 import RenderComponent from './modules/RenderComponent';
 import MyToDoClass from './modules/MyToDoClass';
+import UnmountComponent from './modules/UnmountComponent';
 
 
 function App() {
   const [item, setItem] = useState(['First element']) // [item, setItem]
   const [input, setInput] = useState('');
   const [isShowTimer, setIsShowTimer] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  
 
   const onClickHandler = (input) => {
     const updateElement = [...item, input];
@@ -30,6 +33,18 @@ function App() {
   { className: 'greeting' },
   'Hello')
 
+  useEffect(() => {
+    console.log('I am useEffect - componentDidMount');
+  }, []);
+  
+  useEffect(() => {
+    console.log('I am useEffect - componentDidUpdate');
+  }, [item]);
+  
+  useEffect(() => {
+    console.log('I am useEffect - componentDidUpdate');
+  }, [input]);
+
   return (
     <div>
       {element}
@@ -46,6 +61,8 @@ function App() {
       <RenderComponent />
       {isShowTimer ?  <MyToDoClass /> : <MyToDo />}
       <button onClick={() => setIsShowTimer((prev) => !prev)}>Show Timer</button>
+      {isMounted ? <UnmountComponent /> : <p>Text</p>}
+      <button onClick={() => setIsMounted((prev) => !prev)}>Unmount</button>
      
     </div>
     
