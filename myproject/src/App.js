@@ -8,6 +8,7 @@ import MyToDo from './modules/MyToDo';
 import RenderComponent from './modules/RenderComponent';
 import MyToDoClass from './modules/MyToDoClass';
 import UnmountComponent from './modules/UnmountComponent';
+import Counter from './modules/Counter';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
   const [input, setInput] = useState('');
   const [isShowTimer, setIsShowTimer] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [value, setValue] = useState(0);
   
 
   const onClickHandler = (input) => {
@@ -45,6 +47,10 @@ function App() {
     console.log('I am useEffect - componentDidUpdate');
   }, [input]);
 
+  const handlerClick = () => {
+    setValue((prevValue) => prevValue + 1);
+  }
+
   return (
     <div>
       {element}
@@ -63,6 +69,9 @@ function App() {
       <button onClick={() => setIsShowTimer((prev) => !prev)}>Show Timer</button>
       {isMounted ? <UnmountComponent /> : <p>Text</p>}
       <button onClick={() => setIsMounted((prev) => !prev)}>Unmount</button>
+      <p>Say Hello - {value}</p>
+      <button onClick={handlerClick}>Hello</button>
+      <Counter />
      
     </div>
     
