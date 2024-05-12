@@ -1,7 +1,7 @@
 import './App.css';
 import Home from './modules/Home';
 import Forma from './modules/Forma';
-import { createElement, useState, useEffect } from 'react';
+import { createElement, useState, useEffect, useRef } from 'react';
 import HelloWorldComponent from './modules/HelloWorldComponent';
 import MyClassComponent from './modules/MyClassComponent';
 import MyToDo from './modules/MyToDo';
@@ -17,7 +17,9 @@ function App() {
   const [isShowTimer, setIsShowTimer] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [value, setValue] = useState(0);
-  
+  const headerRef = useRef();
+  const inputRef = useRef();
+  console.log(headerRef);
 
   const onClickHandler = (input) => {
     const updateElement = [...item, input];
@@ -49,10 +51,30 @@ function App() {
 
   const handlerClick = () => {
     setValue((prevValue) => prevValue + 1);
-  }
+  };
+
+  const handleFocus = () => {
+    inputRef.current.focus();
+    console.log(inputRef.current.value);
+  };
 
   return (
     <div>
+      
+      <header className="App-header" ref={headerRef}>
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+
       {element}
       < HelloWorldComponent />
       < MyClassComponent />
@@ -72,7 +94,8 @@ function App() {
       <p>Say Hello - {value}</p>
       <button onClick={handlerClick}>Hello</button>
       <Counter />
-     
+      <input type="text" ref={inputRef}/>
+      <button onClick={handleFocus}>Focus me</button>
     </div>
     
   );
