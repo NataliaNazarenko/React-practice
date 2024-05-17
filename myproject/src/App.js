@@ -9,6 +9,7 @@ import RenderComponent from './modules/RenderComponent';
 import MyToDoClass from './modules/MyToDoClass';
 import UnmountComponent from './modules/UnmountComponent';
 import Counter from './modules/Counter';
+import MyMemoHook from './modules/MyMemoHook';
 
 
 function App() {
@@ -96,6 +97,7 @@ function App() {
       <Counter />
       <input type="text" ref={inputRef}/>
       <button onClick={handleFocus}>Focus me</button>
+      <MyMemoHook />
     </div>
     
   );
