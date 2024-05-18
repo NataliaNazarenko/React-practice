@@ -10,6 +10,7 @@ import MyToDoClass from './modules/MyToDoClass';
 import UnmountComponent from './modules/UnmountComponent';
 import Counter from './modules/Counter';
 import MyMemoHook from './modules/MyMemoHook';
+import MyUseCallbackHook from './modules/MyкUseCallbackHook';
 
 
 function App() {
@@ -98,6 +99,7 @@ function App() {
       <input type="text" ref={inputRef}/>
       <button onClick={handleFocus}>Focus me</button>
       <MyMemoHook />
+      <MyUseCallbackHook />
     </div>
     
   );
