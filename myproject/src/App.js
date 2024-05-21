@@ -11,6 +11,7 @@ import UnmountComponent from './modules/UnmountComponent';
 import Counter from './modules/Counter';
 import MyMemoHook from './modules/MyMemoHook';
 import MyUseCallbackHook from './modules/MyкUseCallbackHook';
+import MyChildComponent from './modules/MyChildComponent';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
   const [isShowTimer, setIsShowTimer] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [value, setValue] = useState(0);
+  const [data, setData] = useState(["one", "two", "three", "four"]);
   const headerRef = useRef();
   const inputRef = useRef();
   console.log(headerRef);
@@ -100,6 +102,9 @@ function App() {
       <button onClick={handleFocus}>Focus me</button>
       <MyMemoHook />
       <MyUseCallbackHook />
+      {data.map((item, index) => {return (
+      <MyChildComponent item={item} key={index}/>
+      )})}
     </div>
     
   );
