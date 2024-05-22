@@ -12,6 +12,7 @@ import Counter from './modules/Counter';
 import MyMemoHook from './modules/MyMemoHook';
 import MyUseCallbackHook from './modules/MyкUseCallbackHook';
 import MyChildComponent from './modules/MyChildComponent';
+import SecondChildComponent from './modules/SecondChildComponent';
 
 
 function App() {
@@ -102,9 +103,11 @@ function App() {
       <button onClick={handleFocus}>Focus me</button>
       <MyMemoHook />
       <MyUseCallbackHook />
+      <SecondChildComponent />
       {data.map((item, index) => {return (
       <MyChildComponent item={item} key={index}/>
       )})}
+      <button onClick = {() => setData([...data, 6])}>On Click</button>
     </div>
     
   );
