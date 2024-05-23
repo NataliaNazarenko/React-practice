@@ -13,6 +13,7 @@ import MyMemoHook from './modules/MyMemoHook';
 import MyUseCallbackHook from './modules/MyкUseCallbackHook';
 import MyChildComponent from './modules/MyChildComponent';
 import SecondChildComponent from './modules/SecondChildComponent';
+import { useCounter } from './modules/useCounter';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
   const headerRef = useRef();
   const inputRef = useRef();
   console.log(headerRef);
+  const {counter, increment, decrement} = useCounter();
 
   const onClickHandler = (input) => {
     const updateElement = [...item, input];
@@ -108,6 +110,10 @@ function App() {
       <MyChildComponent item={item} key={index}/>
       )})}
       <button onClick = {() => setData([...data, 6])}>On Click</button>
+      <p>{counter}</p>
+      <button onClick={increment}>+</button>
+      <button onClick={decrement}>-</button>
+
     </div>
     
   );
