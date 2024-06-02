@@ -168,13 +168,6 @@ componentWillUnmount(): Цей метод викликається перед т
 
 Вбудовані стилі (inline styles) застосовуються безпосередньо до HTML-елементів за допомогою атрибуту `style`. Це дозволяє швидко додати стилі до окремих елементів.
 
-Приклад:
-```html
-<div style="color: red; font-size: 20px;">
-  Це текст з вбудованими стилями.
-</div>
-```html
-
 Переваги:
 Швидке та просте застосування.
 Добре підходить для тестування та налагодження.
@@ -187,21 +180,6 @@ componentWillUnmount(): Цей метод викликається перед т
 ### 2. Звичайний CSS
 
 Звичайний CSS використовується для стилізації HTML через зовнішні файли або секції `style` в HTML-документах. Стилі можуть бути застосовані до багатьох елементів одночасно.
-
-Приклад:
-css
-Копировать код
-/* styles.css */
-h1 {
-  color: blue;
-  font-size: 24px;
-}
-
-```html
-Копировать код 
-<link rel="stylesheet" type="text/css" href="styles.css">
-<h1>Заголовок</h1>
-```html
 
 Переваги:
 Чітка структура та організація стилів.
@@ -216,23 +194,6 @@ h1 {
 
 CSS модулі дозволяють уникнути конфліктів імен класів, створюючи унікальні класи, обмежені певним компонентом.
 
-Приклад:
-css
-Копировать код
-/* styles.module.css */
-.header {
-  color: green;
-  font-size: 20px;
-}
-
-javascript
-Копировать код
-import styles from './styles.module.css';
-
-function Header() {
-  return <h1 className={styles.header}>Заголовок</h1>;
-}
-
 Переваги:
 Уникнення конфліктів імен класів.
 Локальні стилі для компонентів.
@@ -244,23 +205,6 @@ function Header() {
 ### 4. CSS in JS
 
 CSS in JS дозволяє писати стилі безпосередньо в JavaScript-коді, що забезпечує динамічне застосування стилів.
-
-Приклад:
-
-javascript
-Копировать код
-import { StyleSheet, css } from 'aphrodite';
-
-const styles = StyleSheet.create({
-  header: {
-    color: 'purple',
-    fontSize: '20px'
-  }
-});
-
-function Header() {
-  return <h1 className={css(styles.header)}>Заголовок</h1>;
-}
 
 Переваги:
 Легкість динамічного застосування стилів.
