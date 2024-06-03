@@ -15,6 +15,18 @@ import MyChildComponent from './modules/MyChildComponent';
 import SecondChildComponent from './modules/SecondChildComponent';
 import { useCounter } from './modules/useCounter';
 
+const styles = {
+  containerGreen: {
+    color: 'green',
+    fontSize: 30,
+  },
+
+  containerBlue: {
+    color: 'blue',
+    fontSize: 30,
+  }
+};
+
 
 function App() {
   const [item, setItem] = useState(['First element']) // [item, setItem]
@@ -27,6 +39,7 @@ function App() {
   const inputRef = useRef();
   console.log(headerRef);
   const {counter, increment, decrement} = useCounter();
+  const [color, setColor] = useState(false);
 
   const onClickHandler = (input) => {
     const updateElement = [...item, input];
@@ -65,13 +78,18 @@ function App() {
     console.log(inputRef.current.value);
   };
 
+  const changeColor = () => {
+    setColor(!color);
+  };
+
   return (
-    <div>
+    <div style={{padding: 30, backgroundColor: 'gray'}}>
       
       <header className="App-header" ref={headerRef}>
-        <p>
+        <p style={color ? styles.containerBlue : styles.containerGreen}>
           Edit <code>src/App.js</code> and save to reload.
         </p>
+        <button onClick={changeColor}>Change Color</button>
         <a
           className="App-link"
           href="https://reactjs.org"
