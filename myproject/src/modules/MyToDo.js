@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './MyToDo.css'
 
 const MyToDo = () => {
     const [input, setInput] = useState('');
@@ -7,6 +8,11 @@ const MyToDo = () => {
         { id: 2, name: 'Todo 2' },
         { id: 3, name: 'Todo 3' }
     ]);
+    const [color, setColor] = useState(false);
+
+    const ChangeColorText = () => {
+        setColor(!color);
+    };
 
     const index = todos.length;
 
@@ -38,12 +44,13 @@ const MyToDo = () => {
 
     return (
         <>
-            <p>My ToDo</p>
+             <p className={`text ${color ? "textPink" : "textBlue"}`}>My ToDo</p>
+            <button onClick={ChangeColorText}>Change Color Text</button>
             <input onKeyDown={onEnterHandler} onChange={onChangeHandler} placeholder='Enter to do' value={input} type='text'></input>
             <p>{index}</p>
-            <ul>
+            <ul className="wrapper">
                 {todos.map(todo => (
-                    <li key={todo.id}>
+                    <li key={todo.id} >
                         {`ID: ${todo.id}, Name: ${todo.name}`}
                         <button type='button' onClick={() => deleteTodo(todo.id)}>Delete</button>
                     </li>
