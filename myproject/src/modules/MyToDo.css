@@ -16,3 +16,9 @@
 .textBlue{
     color: blue;
 }
+
+.button {
+    padding: 15px;
+    border-radius: 5px;
+}
+

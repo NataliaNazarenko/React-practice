@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import styles from './RegistrationForm.module.css'
 import './Forma.css';
 
 const RegistrationForm = ({name, city, email, password, handleChangeName, handleChangeCity, handleChangeEmail, handleChangePassword, onSubmitForm}) => {
+    const [color, setColor] = useState(false);
 
     const checkPass = (pass) => {
         const beginWithoutDigit = /^\D.*$/;
@@ -24,10 +26,15 @@ const RegistrationForm = ({name, city, email, password, handleChangeName, handle
     const validForm = () => {
         return checkPass(password) && checkEmail(email);
     };
+    const ChangeColorText = () => {
+        setColor(!color);
+    };
 
     return (
         <div className='container'>
-            <p>Registration Form</p>
+            <p className={`${styles.text} ${color ? styles.textRed : ''}`}>Registration Form</p>
+            <button className="button" onClick={ChangeColorText}>Change Color Text</button>
+
             <form>
                 <div>
                     <label>Name</label>

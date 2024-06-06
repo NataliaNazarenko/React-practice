@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 import './MyToDo.css'
 
 const MyToDo = () => {
@@ -45,7 +46,8 @@ const MyToDo = () => {
     return (
         <>
              <p className={`text ${color ? "textPink" : "textBlue"}`}>My ToDo</p>
-            <button onClick={ChangeColorText}>Change Color Text</button>
+             <p className={classNames("text", { textBlue: color })}>My Color</p>
+            <button className="button" onClick={ChangeColorText}>Change Color Text</button>
             <input onKeyDown={onEnterHandler} onChange={onChangeHandler} placeholder='Enter to do' value={input} type='text'></input>
             <p>{index}</p>
             <ul className="wrapper">
