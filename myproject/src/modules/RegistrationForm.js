@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 import styles from './RegistrationForm.module.css'
 import './Forma.css';
 
@@ -30,9 +31,22 @@ const RegistrationForm = ({name, city, email, password, handleChangeName, handle
         setColor(!color);
     };
 
+    const setStyleColor = (type) => {
+        if (type ==='green') {
+            return "textGreen";
+        };
+
+        if (type ==='yellow') {
+            return "textYellow";
+        };
+    };
+
+
     return (
         <div className='container'>
             <p className={`${styles.text} ${color ? styles.textRed : ''}`}>Registration Form</p>
+            <p className={`${styles.text} ${styles[setStyleColor('yellow')]}`}>Text</p>
+            <p className={classNames(styles.text, { [styles.textRed]: color, [styles.textGreen]: !color})}>Text</p>
             <button className="button" onClick={ChangeColorText}>Change Color Text</button>
 
             <form>
