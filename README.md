@@ -213,3 +213,199 @@ CSS in JS дозволяє писати стилі безпосередньо в
 Недоліки:
 Може бути складним для налагодження.
 Збільшення розміру JavaScript-файлів.
+
+## Урок 9: Форми
+
+### 1. Неконтрольовані елементи
+
+Неконтрольовані елементи — це елементи форми, стан яких керується самим DOM. У React вони реалізуються за допомогою `ref`.
+
+### Приклад використання
+
+```jsx
+import React, { useRef } from 'react';
+
+function UncontrolledForm() {
+  const inputRef = useRef(null);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(`Input Value: ${inputRef.current.value}`);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input type="text" ref={inputRef} />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+export default UncontrolledForm;
+```
+
+### 2. Контрольовані елементи
+Контрольовані елементи — це елементи форми, стан яких повністю контролюється React. Всі зміни стану відстежуються через стан компонента.
+
+### Приклад використання
+
+```jsx
+import React, { useState } from 'react';
+
+function ControlledForm() {
+  const [inputValue, setInputValue] = useState('');
+
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(`Input Value: ${inputValue}`);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={inputValue}
+        onChange={handleChange}
+      />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+export default ControlledForm;
+```
+
+### 3. Складні форми
+Складні форми можуть містити безліч контрольованих та неконтрольованих елементів, а також додаткову логіку валідації та обробки.
+
+### Приклад використання
+
+```jsx
+import React, { useState } from 'react';
+
+function ComplexForm() {
+  const [formState, setFormState] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(`Form Data: ${JSON.stringify(formState)}`);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        name="username"
+        value={formState.username}
+        onChange={handleChange}
+      />
+      <input
+        type="email"
+        name="email"
+        value={formState.email}
+        onChange={handleChange}
+      />
+      <input
+        type="password"
+        name="password"
+        value={formState.password}
+        onChange={handleChange}
+      />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+export default ComplexForm;
+```
+
+### 4. Бібліотеки для роботи з формами
+Існує безліч бібліотек для роботи з формами у React, які спрощують керування станом та валідацією форм. Найпопулярніші з них:
+
+### Formik
+Formik — це бібліотека для створення форм у React, яка надає зручні інструменти для керування станом та валідацією.
+npm install formik
+
+### Приклад використання
+
+```jsx
+import React from 'react';
+import { useFormik } from 'formik';
+
+function FormikForm() {
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    onSubmit: (values) => {
+      alert(`Form Data: ${JSON.stringify(values)}`);
+    },
+  });
+
+  return (
+    <form onSubmit={formik.handleSubmit}>
+      <input
+        type="email"
+        name="email"
+        onChange={formik.handleChange}
+        value={formik.values.email}
+      />
+      <input
+        type="password"
+        name="password"
+        onChange={formik.handleChange}
+        value={formik.values.password}
+      />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+export default FormikForm;
+```
+
+### React Hook Form
+React Hook Form — це бібліотека, яка використовує хуки для керування формами та валідації.
+npm install react-hook-form
+
+### Приклад використання
+
+```jsx
+import React from 'react';
+import { useForm } from 'react-hook-form';
+
+function ReactHookForm() {
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = (data) => {
+    alert(`Form Data: ${JSON.stringify(data)}`);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input type="email" {...register('email')} />
+      <input type="password" {...register('password')} />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+export default ReactHookForm;
+```
