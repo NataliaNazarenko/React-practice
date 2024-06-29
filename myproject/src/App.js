@@ -14,6 +14,7 @@ import MyUseCallbackHook from './modules/MyкUseCallbackHook';
 import MyChildComponent from './modules/MyChildComponent';
 import SecondChildComponent from './modules/SecondChildComponent';
 import { useCounter } from './modules/useCounter';
+import ControlledForm from './modules/components/ControlledForms/ControlledForm'
 
 const styles = {
   containerGreen: {
@@ -131,6 +132,7 @@ function App() {
       <p>{counter}</p>
       <button onClick={increment}>+</button>
       <button onClick={decrement}>-</button>
+      <ControlledForm />
 
     </div>
     
