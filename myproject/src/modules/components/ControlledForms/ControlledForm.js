@@ -11,6 +11,7 @@ const ControlledForm = () => {
         name: '',
         email: '',
         checkbox: '',
+        radio: 'radio1',
     });
 
     const handleSubmit = (event) => {
