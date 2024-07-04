@@ -2,6 +2,7 @@ import React, { useState }from "react";
 import InputData from './InputData';
 import Checkbox from "./Checkbox";
 import TextInputs from "./TextInputs";
+import CustomSelect from "./CustomSelect"
 
 const ControlledForm = () => {
     // const [name, setName] = useState('');
@@ -12,6 +13,7 @@ const ControlledForm = () => {
         email: '',
         checkbox: '',
         radio: 'radio1',
+        select: '',
     });
 
     const handleSubmit = (event) => {
@@ -36,6 +38,7 @@ const ControlledForm = () => {
         <form onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'colum'}}>
             <TextInputs value={value} setValue={setValue}/>
             <Checkbox value={value} setValue={setValue}/>
+            <CustomSelect value={value} setValue={setValue}/>
            <div style={{padding: '20px'}}>
             <button type="submit" style={{width: '200px'}}>Submit Form</button>
            </div>
