@@ -13,7 +13,11 @@ const CustomSelect = ({value, setValue}) => {
                 type="select" 
                 name="select" 
                 id="select" 
-                ></select>
+                >
+                    <option value="select1">Select 1</option>
+                    <option value="select2">Select 2</option>
+                    <option value="select3">Select 3</option>
+                </select>
             </div>
         </>
     );
