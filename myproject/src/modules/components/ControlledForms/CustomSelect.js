@@ -1,7 +1,9 @@
 const CustomSelect = ({value, setValue}) => {
 
     const handleSelectChange = (event) => {
-
+        console.log(event);
+        const data = event.target.value;
+        setValue(data);
     };
 
     return (
