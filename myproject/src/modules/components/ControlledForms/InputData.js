@@ -7,6 +7,7 @@ const InputData = ({value}) => {
         <p>Email: <strong>{value.email}</strong></p>
         <p>Checkbox: <strong>{value.checkbox? 'Checked' : 'Not Checked'}</strong></p>
         <p>Checkbox: <strong>{value.checkbox.toString()}</strong></p>
+        <p>Select: <strong>{value.select}</strong></p>
     </div>
     )
 };
