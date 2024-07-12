@@ -1,9 +1,11 @@
+import { debounce } from 'lodash'
+
 const TextInputs = ({value, setValue}) => {
 
-    const handleNameChange = (event) => {
+    const handleNameChange = debounce ((event) => {
         const name = event.target.value;
         setValue((prevState) => ({...prevState, name}));
-    };
+    }, 500);
 
     const handleEmailChange = (event) => {
         const email = event.target.value;
