@@ -3,6 +3,7 @@
     "@emotion/styled": "^11.11.5",
     "classnames": "^2.5.1",
     "emotion-styled-components": "^1.0.2",
+    "formik": "^2.4.6",
     "lodash": "^4.17.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
