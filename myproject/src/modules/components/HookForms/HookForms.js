@@ -6,8 +6,12 @@ const HookForms = () => {
         formState: { errors },
     } = useForm();
 
+    const onSubmit = (data) => {
+        console.log(data);
+    };
+
     return (
-        <form onSubmit={handleSubmit((data) => console.log(data))}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <input {...register('firstName')} />
           <input {...register('lastName', { required: true })} />
           {errors.lastName && <p>Last name is required.</p>}
