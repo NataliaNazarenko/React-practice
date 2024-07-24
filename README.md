@@ -421,3 +421,117 @@ export default ReactHookForm;
 ### Приклад використання
 
 ```jsx
+import React, { useState, useEffect } from 'react';
+
+function DataLoader() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('https://api.example.com/data')
+      .then(response => response.json())
+      .then(data => {
+        setData(data);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <div>Завантаження...</div>;
+  }
+
+  return <div>Дані: {JSON.stringify(data)}</div>;
+}
+
+export default DataLoader;
+```
+
+### 2. Обробка помилок
+
+При роботі з HTTP запитами завжди є ймовірність виникнення помилок (наприклад, проблеми з мережею або неправильний URL). Ми повинні обробляти ці помилки, щоб користувач бачив відповідні повідомлення про помилки.
+
+### Приклад використання
+
+```jsx
+import React, { useState, useEffect } from 'react';
+
+function DataLoader() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch('https://api.example.com/data')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setData(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        setError(error);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <div>Завантаження...</div>;
+  }
+
+  if (error) {
+    return <div>Помилка: {error.message}</div>;
+  }
+
+  return <div>Дані: {JSON.stringify(data)}</div>;
+}
+
+export default DataLoader;
+```
+
+### 3. Бібліотека react-query
+
+react-query - це бібліотека для управління станом запитів у React. Вона надає простий та ефективний спосіб роботи з запитами, обробкою завантаження та помилок, а також кешуванням даних.
+
+Встановлення
+npm install react-query
+
+### Приклад використання
+
+```jsx
+import React from 'react';
+import { useQuery } from 'react-query';
+
+async function fetchData() {
+  const res = await fetch('https://api.example.com/data');
+  if (!res.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return res.json();
+}
+
+function DataLoader() {
+  const { data, error, isLoading } = useQuery('data', fetchData);
+
+  if (isLoading) {
+    return <div>Завантаження...</div>;
+  }
+
+  if (error) {
+    return <div>Помилка: {error.message}</div>;
+  }
+
+  return <div>Дані: {JSON.stringify(data)}</div>;
+}
+
+export default DataLoader;
+```
+
+Переваги використання react-query
+Автоматичне управління станом завантаження та помилок
+Кешування даних для зменшення кількості запитів
+Простий та зрозумілий API
+Цей README файл надає базову інформацію про роботу з HTTP запитами та REST API в React, а також про використання бібліотеки react-query для оптимізації процесу роботи з запитами.
