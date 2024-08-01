@@ -1,3 +1,4 @@
+import axios from "axios"
 import './App.css';
 import Home from './modules/Home';
 import Forma from './modules/Forma';
@@ -41,6 +42,18 @@ function App() {
   console.log(headerRef);
   const {counter, increment, decrement} = useCounter();
   const [color, setColor] = useState(false);
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    const getContactsList = async () => {
+      const contactsList = await axios.get('http://localhost:3000/contacts');
+      setContacts(contactsList);
+      return contactsList;
+    };
+    getContactsList();
+  }, []);
+
+  console.log(contacts);
 
   const onClickHandler = (input) => {
     const updateElement = [...item, input];
