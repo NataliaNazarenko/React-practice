@@ -46,7 +46,7 @@ function App() {
 
   useEffect(() => {
     const getContactsList = async () => {
-      const contactsList = await axios.get('http://localhost:3000/contacts');
+      const contactsList = await axios.get('http://localhost:4000/contacts');
       setContacts(contactsList);
       return contactsList;
     };

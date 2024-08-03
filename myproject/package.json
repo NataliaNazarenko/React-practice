@@ -13,13 +13,19 @@
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "sass": "^1.77.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "axios": "^1.7.2",
+    "classnames": "^2.5.1",
+    "emotion-styled-components": "^1.0.2",
+    "formik": "^2.4.6",
+    "json-server": "^1.0.0-beta.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start-json-server": "json-server --watch db.json --port 4000"
   },
   "eslintConfig": {
     "extends": [
