@@ -16,6 +16,7 @@ import MyChildComponent from './modules/MyChildComponent';
 import SecondChildComponent from './modules/SecondChildComponent';
 import { useCounter } from './modules/useCounter';
 import ControlledForm from './modules/components/ControlledForms/ControlledForm'
+import { getContactsList } from "./modules/api/api";
 
 const styles = {
   containerGreen: {
@@ -44,13 +45,13 @@ function App() {
   const [color, setColor] = useState(false);
   const [contacts, setContacts] = useState([]);
 
+  const fetchData = async () => {
+    const data = await getContactsList();
+    setContacts(data);
+  };
+
   useEffect(() => {
-    const getContactsList = async () => {
-      const contactsList = await axios.get('http://localhost:4000/contacts');
-      setContacts(contactsList);
-      return contactsList;
-    };
-    getContactsList();
+    fetchData();
   }, []);
 
   console.log(contacts);
@@ -98,6 +99,15 @@ function App() {
 
   return (
     <div style={{padding: 30, backgroundColor: 'gray'}}>
+
+      <div>
+        <h1>Contacts</h1>
+        <ul>
+          {contacts.map(contact => (
+            <li key={contact.id}>{contact.name} {contact.LastName} - {contact.about}</li>
+          ))}
+        </ul>
+      </div>
       
       <header className="App-header" ref={headerRef}>
         <p style={color ? styles.containerBlue : styles.containerGreen}>
