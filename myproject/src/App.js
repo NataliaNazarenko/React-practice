@@ -1,4 +1,3 @@
-import axios from "axios"
 import './App.css';
 import Home from './modules/Home';
 import Forma from './modules/Forma';
