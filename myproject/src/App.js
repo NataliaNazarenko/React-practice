@@ -43,9 +43,12 @@ function App() {
   const {counter, increment, decrement} = useCounter();
   const [color, setColor] = useState(false);
   const [contacts, setContacts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchData = async () => {
+    setIsLoading(true);
     const data = await getContactsList();
+    setIsLoading(false);
     setContacts(data);
   };
 
