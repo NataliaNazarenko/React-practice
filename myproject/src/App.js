@@ -16,6 +16,7 @@ import SecondChildComponent from './modules/SecondChildComponent';
 import { useCounter } from './modules/useCounter';
 import ControlledForm from './modules/components/ControlledForms/ControlledForm'
 import { getContactsList } from "./modules/api/api";
+import Loader from './modules/components/Loader/Loader';
 
 const styles = {
   containerGreen: {
@@ -105,9 +106,10 @@ function App() {
       <div>
         <h1>Contacts</h1>
         <ul>
-          {contacts.map(contact => (
-            <li key={contact.id}>{contact.name} {contact.LastName} - {contact.about}</li>
+          {isLoading ?  (<Loader loading={isLoading}/>) : (contacts.map(contact => (
+            <li key={contact.id}>{contact.name} {contact.LastName} - {contact.about}</li>)
           ))}
+          
         </ul>
       </div>
       
