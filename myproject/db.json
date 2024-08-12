@@ -1,16 +1,16 @@
 {
-    "contacts": [
-      { "id": "1", 
-      "name": "Nata", 
+  "contacts": [
+    {
+      "id": "1",
+      "name": "Nata",
       "LastName": "Nazarenko",
       "about": "student"
-     },
-
-     { "id": "2", 
-     "name": "Oleh", 
-     "LastName": "Pidhurskiy",
-     "about": "student"
+    },
+    {
+      "id": "2",
+      "name": "Oleh",
+      "LastName": "Pidhurskiy",
+      "about": "student"
     }
-    ]
-
+  ]
 }

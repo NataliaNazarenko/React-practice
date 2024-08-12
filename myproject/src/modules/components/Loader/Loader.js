@@ -1,27 +1,17 @@
 import PacmanLoader from "react-spinners/PacmanLoader";
 
-const Loader = ({ loading, size = 50 }) => {
+const Loader = ({loading, size=30}) => {
   return (
-    <div style={styles.loaderContainer}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       <PacmanLoader
         color="#e8ae3d"
         loading={loading}
         margin={2}
         size={size}
         speedMultiplier={1}
-        display="block"
       />
     </div>
   );
-};
-
-const styles = {
-  loaderContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh', // Це забезпечить вирівнювання по вертикалі, заповнюючи весь екран
-  },
-};
+}
 
 export default Loader;

@@ -15,8 +15,9 @@ import MyChildComponent from './modules/MyChildComponent';
 import SecondChildComponent from './modules/SecondChildComponent';
 import { useCounter } from './modules/useCounter';
 import ControlledForm from './modules/components/ControlledForms/ControlledForm'
-import { getContactsList } from "./modules/api/api";
 import Loader from './modules/components/Loader/Loader';
+import {getContactsList, addContact, deleteContact} from './modules/api/api';
+import useFetch from './modules/hooks/useFetch';
 
 const styles = {
   containerGreen: {
@@ -37,28 +38,21 @@ function App() {
   const [isShowTimer, setIsShowTimer] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [value, setValue] = useState(0);
-  const [data, setData] = useState(["one", "two", "three", "four"]);
+  const [isData, setData] = useState(["one", "two", "three", "four"]);
   const headerRef = useRef();
   const inputRef = useRef();
   console.log(headerRef);
   const {counter, increment, decrement} = useCounter();
   const [color, setColor] = useState(false);
-  const [contacts, setContacts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isContacts, setContacts] = useState([]);
+  const [isPostLoading, setIsPostLoading] = useState(false);
 
-  const fetchData = async () => {
-    setIsLoading(true);
-    const data = await getContactsList();
-    setIsLoading(false);
-    setContacts(data);
-  };
+  const {data: contacts, loading, error} = useFetch('contacts');
 
   useEffect(() => {
-    fetchData();
-  }, []);
-
-  console.log(contacts);
-
+      setContacts(contacts);
+  }, [contacts]);
+  
   const onClickHandler = (input) => {
     const updateElement = [...item, input];
 
@@ -100,17 +94,41 @@ function App() {
     setColor(!color);
   };
 
+  if(error) {
+    return <div>Error: {error}</div>
+  };
+
+  const addContacts = async () => {
+    setIsPostLoading(true);
+    const newContact = {name: 'John Doe', LastName: 'Doe', about: 'I am a new contact'};
+    const addedContact = await addContact(newContact);
+    setContacts([...isContacts, addedContact]);
+    setIsPostLoading(false);
+  };
+
+  const deleteContactHandler = async (id) => {
+    await deleteContact(id);
+    setContacts(isContacts.filter(contact => contact.id !== id));
+  };
+
   return (
     <div style={{padding: 30, backgroundColor: 'gray'}}>
 
       <div>
         <h1>Contacts</h1>
         <ul>
-          {isLoading ?  (<Loader loading={isLoading}/>) : (contacts.map(contact => (
-            <li key={contact.id}>{contact.name} {contact.LastName} - {contact.about}</li>)
-          ))}
-          
-        </ul>
+          {loading ? (
+            <Loader loading={loading} />
+          ) : (
+            isContacts.map((contact) => (
+              <li key={contact.id}>
+                {contact.name} {contact.LastName} - {contact.about}
+                <button onClick={() => deleteContactHandler(contact.id)}>Delete</button>
+              </li>
+            ))
+          )}
+      </ul>
+        <button onClick={addContacts} disabled={isPostLoading}>{isPostLoading ? 'Loading...' : 'Add'}</button>
       </div>
       
       <header className="App-header" ref={headerRef}>
@@ -152,10 +170,10 @@ function App() {
       <MyMemoHook />
       <MyUseCallbackHook />
       <SecondChildComponent />
-      {data.map((item, index) => {return (
+      {isData.map((item, index) => {return (
       <MyChildComponent item={item} key={index}/>
       )})}
-      <button onClick = {() => setData([...data, 6])}>On Click</button>
+      <button onClick = {() => setData([...isData, 6])}>On Click</button>
       <p>{counter}</p>
       <button onClick={increment}>+</button>
       <button onClick={decrement}>-</button>
