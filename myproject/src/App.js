@@ -16,7 +16,7 @@ import SecondChildComponent from './modules/SecondChildComponent';
 import { useCounter } from './modules/useCounter';
 import ControlledForm from './modules/components/ControlledForms/ControlledForm'
 import Loader from './modules/components/Loader/Loader';
-import {getContactsList, addContact, deleteContact} from './modules/api/api';
+import {getContactsList, addContact, deleteContact, updateContact} from './modules/api/api';
 import useFetch from './modules/hooks/useFetch';
 
 const styles = {
@@ -111,6 +111,12 @@ function App() {
     setContacts(isContacts.filter(contact => contact.id !== id));
   };
 
+  const editContact = async (id) => {
+    const newContact = {name: 'Sharma', LastName: 'Doe', about: 'I am a new contact'};
+    const updatedContact = await updateContact(id, newContact);
+    setContacts(isContacts.map(contact => contact.id === id ? updatedContact : contact));
+  };
+
   return (
     <div style={{padding: 30, backgroundColor: 'gray'}}>
 
@@ -124,6 +130,7 @@ function App() {
               <li key={contact.id}>
                 {contact.name} {contact.LastName} - {contact.about}
                 <button onClick={() => deleteContactHandler(contact.id)}>Delete</button>
+                <button onClick={() => editContact(contact.id)}>Update</button>
               </li>
             ))
           )}

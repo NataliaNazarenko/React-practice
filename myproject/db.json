@@ -11,6 +11,30 @@
       "name": "Oleh",
       "LastName": "Pidhurskiy",
       "about": "student"
+    },
+    {
+      "name": "Sharma",
+      "LastName": "Doe",
+      "about": "I am a new contact",
+      "id": "c49b"
+    },
+    {
+      "id": "aff0",
+      "name": "John Doe",
+      "LastName": "Doe",
+      "about": "I am a new contact"
+    },
+    {
+      "name": "Sharma",
+      "LastName": "Doe",
+      "about": "I am a new contact",
+      "id": "b873"
+    },
+    {
+      "name": "Sharma",
+      "LastName": "Doe",
+      "about": "I am a new contact",
+      "id": "153c"
     }
   ]
 }
