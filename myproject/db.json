@@ -7,19 +7,13 @@
       "about": "student"
     },
     {
-      "id": "2",
-      "name": "Oleh",
-      "LastName": "Pidhurskiy",
-      "about": "student"
-    },
-    {
       "name": "Sharma",
       "LastName": "Doe",
       "about": "I am a new contact",
-      "id": "c49b"
+      "id": "2872"
     },
     {
-      "id": "aff0",
+      "id": "853b",
       "name": "John Doe",
       "LastName": "Doe",
       "about": "I am a new contact"
@@ -28,13 +22,13 @@
       "name": "Sharma",
       "LastName": "Doe",
       "about": "I am a new contact",
-      "id": "b873"
+      "id": "d465"
     },
     {
-      "name": "Sharma",
+      "id": "a93a",
+      "name": "John Doe",
       "LastName": "Doe",
-      "about": "I am a new contact",
-      "id": "153c"
+      "about": "I am a new contact"
     }
   ]
 }
