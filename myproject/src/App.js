@@ -1,4 +1,3 @@
-// Імпорти бібліотек
 import { useState, useEffect, useRef, createElement } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
@@ -20,8 +19,8 @@ import SecondChildComponent from './modules/SecondChildComponent';
 
 // Імпорти утиліт, хуків, API
 import { useCounter } from './modules/useCounter';
-import { getContactsList, addContact, deleteContact, updateContact } from './modules/api/api';
-import useFetch from './modules/hooks/useFetch';
+import { addContact, deleteContact, updateContact } from './modules/api/api';
+// import useFetch from './modules/hooks/useFetch';
 
 // Імпорти стилізованих компонентів
 import ControlledForm from './modules/components/ControlledForms/ControlledForm';
@@ -38,17 +37,18 @@ function App() {
   const [input, setInput] = useState('');
   const [isShowTimer, setIsShowTimer] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const [value, setValue] = useState(0);
   const [isData, setData] = useState(["one", "two", "three", "four"]);
   const [color, setColor] = useState(false);
   const [isContacts, setContacts] = useState([]);
   const [isPostLoading, setIsPostLoading] = useState(false);
+  const [value, setValue] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const headerRef = useRef();
   const inputRef = useRef();
 
   const { counter, increment, decrement } = useCounter();
-  const { data: contacts, loading, error } = useFetch('contacts');
+  // const { data: contacts, loading } = useFetch('contacts');
 
   // Ефекти
   useEffect(() => {
@@ -101,41 +101,41 @@ function App() {
     setContacts(isContacts.map(contact => contact.id === id ? updatedContact : contact));
   };
 
-  // Визначення обробника кліку
   const handlerClick = () => {
     console.log('Button clicked');
   };
 
-  // JSX
   return (
-    <div style={{ padding: 30, backgroundColor: 'gray' }}>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/form" element={<Forma />} />
-        <Route path="/timer" element={
-          <div>
-            <button onClick={() => setIsShowTimer(!isShowTimer)}>Toggle Timer</button>
-            {isShowTimer && <Counter />}
-          </div>
-        } />
-        <Route path="/render" element={<RenderComponent />} />
-        <Route path="/to-do" element={
-          <div>
-            <button onClick={() => setIsMounted(!isMounted)}>Toggle Mount</button>
-            {isMounted && <MyToDo />}
-          </div>
-        } />
-        <Route path="/unmount" element={<UnmountComponent />} />
-        <Route path="/counter-hook" element={
-          <div>
-            <button onClick={increment}>Increment</button>
-            <button onClick={decrement}>Decrement</button>
-            <p>Counter: {counter}</p>
-          </div>
-        } />
-      </Routes>
+    <div className="app-container">
+      <header className="app-header">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/form" element={<Forma />} />
+          <Route path="/timer" element={
+            <div>
+              <button className="toggle-timer-btn" onClick={() => setIsShowTimer(!isShowTimer)}>Toggle Timer</button>
+              {isShowTimer && <Counter />}
+            </div>
+          } />
+          <Route path="/render" element={<RenderComponent />} />
+          <Route path="/to-do" element={
+            <div>
+              <button className="toggle-mount-btn" onClick={() => setIsMounted(!isMounted)}>Toggle Mount</button>
+              {isMounted && <MyToDo />}
+            </div>
+          } />
+          <Route path="/unmount" element={<UnmountComponent />} />
+          <Route path="/counter-hook" element={
+            <div>
+              <button className="counter-btn" onClick={increment}>Increment</button>
+              <button className="counter-btn" onClick={decrement}>Decrement</button>
+              <p>Counter: {counter}</p>
+            </div>
+          } />
+        </Routes>
+      </header>
 
-      <div>
+      <div className="contacts-container">
         <h1>Contacts</h1>
         <ul>
           {loading ? (
@@ -144,13 +144,13 @@ function App() {
             isContacts.map((contact) => (
               <li key={contact.id}>
                 {contact.name} {contact.lastName} - {contact.about}
-                <button onClick={() => deleteContactHandler(contact.id)}>Delete</button>
-                <button onClick={() => editContact(contact.id)}>Update</button>
+                <button className="contact-btn" onClick={() => deleteContactHandler(contact.id)}>Delete</button>
+                <button className="contact-btn" onClick={() => editContact(contact.id)}>Update</button>
               </li>
             ))
           )}
         </ul>
-        <button onClick={addContacts} disabled={isPostLoading}>
+        <button className="add-contact-btn" onClick={addContacts} disabled={isPostLoading}>
           {isPostLoading ? 'Loading...' : 'Add'}
         </button>
       </div>
@@ -159,13 +159,8 @@ function App() {
         <p style={color ? styles.containerBlue : styles.containerGreen}>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <button onClick={changeColor}>Change Color</button>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <button className="color-btn" onClick={changeColor}>Change Color</button>
+        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
           Learn React
         </a>
       </header>
@@ -173,31 +168,31 @@ function App() {
       {createElement('h1', { className: 'greeting' }, 'Hello')}
       <HelloWorldComponent />
       <MyClassComponent />
-      <input type="text" value={input} onChange={onChangeHandler} />
+      <input type="text" value={input} onChange={onChangeHandler} className="input-field" />
       <ul>
         {item.map((element, index) => <li key={index}>{element} {index}</li>)}
       </ul>
-      <button onClick={() => onClickHandler(input)}>Add New Element</button>
+      <button className="add-data-btn" onClick={() => onClickHandler(input)}>Add New Element</button>
       <RenderComponent />
       {isShowTimer ? <MyToDoClass /> : <MyToDo />}
-      <button onClick={() => setIsShowTimer(!isShowTimer)}>Show Timer</button>
+      <button className="toggle-timer-btn" onClick={() => setIsShowTimer(!isShowTimer)}>Show Timer</button>
       {isMounted ? <UnmountComponent /> : <p>Text</p>}
-      <button onClick={() => setIsMounted(!isMounted)}>Unmount</button>
+      <button className="toggle-mount-btn" onClick={() => setIsMounted(!isMounted)}>Unmount</button>
       <p>Say Hello - {value}</p>
-      <button onClick={handlerClick}>Hello</button>
+      <button className="hello-btn" onClick={handlerClick}>Hello</button>
       <Counter />
-      <input type="text" ref={inputRef} />
-      <button onClick={handleFocus}>Focus me</button>
+      <input type="text" ref={inputRef} className="input-field" />
+      <button className="focus-btn" onClick={handleFocus}>Focus me</button>
       <MyMemoHook />
       <MyUseCallbackHook />
       <SecondChildComponent />
       {isData.map((item, index) => (
         <MyChildComponent item={item} key={index} />
       ))}
-      <button onClick={() => setData([...isData, 6])}>On Click</button>
+      <button className="add-data-btn" onClick={() => setData([...isData, 6])}>On Click</button>
       <p>{counter}</p>
-      <button onClick={increment}>+</button>
-      <button onClick={decrement}>-</button>
+      <button className="counter-btn" onClick={increment}>+</button>
+      <button className="counter-btn" onClick={decrement}>-</button>
       <ControlledForm />
     </div>
   );

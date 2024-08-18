@@ -1,28 +1,20 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from 'react';
 
-const MyUseCallbackHook = () => {
-    const [list, setList] = useState([1, 2, 3]);
+function MyUseCallbackHook() {
+  const [list, setList] = useState([]);
 
-    const handleUseCallbackExample = useCallback (() => {
-        setList([...list, list.length + 2]);
+  const handleClick = useCallback(() => {
+    setList(prevList => [...prevList, 'new item']);
+  }, [list]);
 
-    }, []);
-
-    useEffect(() => {
-        handleUseCallbackExample();
-        console.log('render')
-    }, [handleUseCallbackExample]);
-
-    const handleClick = () => {
-        setList([]);
-    };
-
-    return (
-        <>
-           
-            <button onClick={handleClick}>Click Me</button>
-        </>
-    );
-};
+  return (
+    <div>
+      <button onClick={handleClick}>Add Item</button>
+      <ul>
+        {list.map((item, index) => <li key={index}>{item}</li>)}
+      </ul>
+    </div>
+  );
+}
 
 export default MyUseCallbackHook;

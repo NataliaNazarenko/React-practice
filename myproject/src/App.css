@@ -1,1 +1,21 @@
-
+.app-container {
+    padding: 30px;
+    background-color: gray;
+  }
+  
+  .app-header {
+    padding: 20px;
+  }
+  
+  .toggle-timer-btn, .toggle-mount-btn, .counter-btn, .add-contact-btn, .add-element-btn, .hello-btn, .focus-btn, .add-data-btn {
+    margin: 5px;
+    padding: 10px;
+    border: none;
+    color: white;
+    background-color: blue;
+    cursor: pointer;
+  }
+  
+  .toggle-timer-btn:hover, .toggle-mount-btn:hover, .counter-btn:hover, .add-contact-btn:hover, .add-element-btn:hover, .hello-btn:hover, .focus-btn:hover, .add-data-btn:hover {
+    background-color: darkblue;
+  }

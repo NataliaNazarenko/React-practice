@@ -1,33 +1,19 @@
-import {useMutation, useQuery, refetch} from 'react-query';
-import axios from 'axios';
-import { getContactsList, addContact } from '../api/api';
+import React from 'react';
+import useFetch from './hooks/useFetch';
 
+function MyComponent() {
+  const { data, loading, error } = useFetch('https://api.example.com/data');
 
-axios.defaults.baseURL = 'http://localhost:4000/';
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
-const MyComponent = () => {
-    const {data, isFetching, error} = useQuery({
-        queryKey: ['contactsList'],
-        queryFn: getContactsList,
-    }); //використовувати при get запитi
-
-    const {mutateAsync} = useMutation({
-        mutationFn: (payload) => addContact(payload), 
-    }); //використовувати при post запитi
-
-    const addNewContact = async () => {
-        const payload = {name: 'Josha', LastName: 'Doe', about: 'I am a new contact'};
-        try {
-            await mutateAsync(payload);
-            await refetch();
-        } catch (error) {}
-    };
-    
-    if (isFetching) return <div>Loading...</div>;
-    if (error) return <div>Error: {error.message}</div>;
-    return <div>{data.title}</div>;
-};
-
-
+  return (
+    <ul>
+      {data.map(item => (
+        <li key={item.id}>{item.name}</li>
+      ))}
+    </ul>
+  );
+}
 
 export default MyComponent;
