@@ -89,6 +89,18 @@
       "lastName": "Doe",
       "about": "I am a new contact",
       "id": "bf94"
+    },
+    {
+      "id": "8882",
+      "name": "John Doe",
+      "lastName": "Doe",
+      "about": "I am a new contact"
+    },
+    {
+      "id": "0712",
+      "name": "John Doe",
+      "lastName": "Doe",
+      "about": "I am a new contact"
     }
   ]
 }

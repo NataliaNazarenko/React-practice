@@ -108,7 +108,14 @@ function App() {
   return (
     <div className="app-container">
       <header className="app-header">
-        <Routes>
+        <nav>
+          <a href='/'>Home</a>
+          <a href='/form'>Form</a>
+          <a href='/Contacts'>Contacts</a>
+        </nav>
+      </header>
+      <main>
+      <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/form" element={<Forma />} />
           <Route path="/timer" element={
@@ -133,7 +140,7 @@ function App() {
             </div>
           } />
         </Routes>
-      </header>
+      </main>
 
       <div className="contacts-container">
         <h1>Contacts</h1>
