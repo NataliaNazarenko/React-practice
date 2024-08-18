@@ -1,7 +1,11 @@
+// Імпорти бібліотек
+import { useState, useEffect, useRef, createElement } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
+
+// Імпорти компонентів
 import Home from './modules/Home';
 import Forma from './modules/Forma';
-import { createElement, useState, useEffect, useRef } from 'react';
 import HelloWorldComponent from './modules/HelloWorldComponent';
 import MyClassComponent from './modules/MyClassComponent';
 import MyToDo from './modules/MyToDo';
@@ -10,79 +14,63 @@ import MyToDoClass from './modules/MyToDoClass';
 import UnmountComponent from './modules/UnmountComponent';
 import Counter from './modules/Counter';
 import MyMemoHook from './modules/MyMemoHook';
-import MyUseCallbackHook from './modules/MyкUseCallbackHook';
+import MyUseCallbackHook from './modules/MyUseCallbackHook';
 import MyChildComponent from './modules/MyChildComponent';
 import SecondChildComponent from './modules/SecondChildComponent';
+
+// Імпорти утиліт, хуків, API
 import { useCounter } from './modules/useCounter';
-import ControlledForm from './modules/components/ControlledForms/ControlledForm'
-import Loader from './modules/components/Loader/Loader';
-import {getContactsList, addContact, deleteContact, updateContact} from './modules/api/api';
+import { getContactsList, addContact, deleteContact, updateContact } from './modules/api/api';
 import useFetch from './modules/hooks/useFetch';
 
-const styles = {
-  containerGreen: {
-    color: 'green',
-    fontSize: 30,
-  },
+// Імпорти стилізованих компонентів
+import ControlledForm from './modules/components/ControlledForms/ControlledForm';
+import Loader from './modules/components/Loader/Loader';
 
-  containerBlue: {
-    color: 'blue',
-    fontSize: 30,
-  }
+const styles = {
+  containerGreen: { color: 'green', fontSize: 30 },
+  containerBlue: { color: 'blue', fontSize: 30 }
 };
 
-
 function App() {
-  const [item, setItem] = useState(['First element']) // [item, setItem]
+  // Стан
+  const [item, setItem] = useState(['First element']);
   const [input, setInput] = useState('');
   const [isShowTimer, setIsShowTimer] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [value, setValue] = useState(0);
   const [isData, setData] = useState(["one", "two", "three", "four"]);
-  const headerRef = useRef();
-  const inputRef = useRef();
-  console.log(headerRef);
-  const {counter, increment, decrement} = useCounter();
   const [color, setColor] = useState(false);
   const [isContacts, setContacts] = useState([]);
   const [isPostLoading, setIsPostLoading] = useState(false);
 
-  const {data: contacts, loading, error} = useFetch('contacts');
+  const headerRef = useRef();
+  const inputRef = useRef();
+
+  const { counter, increment, decrement } = useCounter();
+  const { data: contacts, loading, error } = useFetch('contacts');
+
+  // Ефекти
+  useEffect(() => {
+    console.log('Component mounted');
+  }, []);
 
   useEffect(() => {
-      setContacts(contacts);
-  }, [contacts]);
-  
-  const onClickHandler = (input) => {
-    const updateElement = [...item, input];
+    console.log('Item updated');
+  }, [item]);
 
-    setItem(updateElement);
+  useEffect(() => {
+    console.log('Input updated');
+  }, [input]);
+
+  // Обробники
+  const onClickHandler = (input) => {
+    setItem([...item, input]);
     setInput('');
   };
 
   const onChangeHandler = (event) => {
-    const value = event.target.value;
-    setInput(value);
-  };
-
-  const element = createElement('h1',
-  { className: 'greeting' },
-  'Hello')
-
-  useEffect(() => {
-    console.log('I am useEffect - componentDidMount');
-  }, []);
-  
-  useEffect(() => {
-    console.log('I am useEffect - componentDidUpdate');
-  }, [item]);
-  
-  useEffect(() => {
-    console.log('I am useEffect - componentDidUpdate');
-  }, [input]);
-
-  const handlerClick = () => {
-    setValue((prevValue) => prevValue + 1);
+    setInput(event.target.value);
   };
 
   const handleFocus = () => {
@@ -94,13 +82,9 @@ function App() {
     setColor(!color);
   };
 
-  if(error) {
-    return <div>Error: {error}</div>
-  };
-
   const addContacts = async () => {
     setIsPostLoading(true);
-    const newContact = {name: 'John Doe', LastName: 'Doe', about: 'I am a new contact'};
+    const newContact = { name: 'John Doe', lastName: 'Doe', about: 'I am a new contact' };
     const addedContact = await addContact(newContact);
     setContacts([...isContacts, addedContact]);
     setIsPostLoading(false);
@@ -112,13 +96,44 @@ function App() {
   };
 
   const editContact = async (id) => {
-    const newContact = {name: 'Sharma', LastName: 'Doe', about: 'I am a new contact'};
+    const newContact = { name: 'Sharma', lastName: 'Doe', about: 'I am a new contact' };
     const updatedContact = await updateContact(id, newContact);
     setContacts(isContacts.map(contact => contact.id === id ? updatedContact : contact));
   };
 
+  // Визначення обробника кліку
+  const handlerClick = () => {
+    console.log('Button clicked');
+  };
+
+  // JSX
   return (
-    <div style={{padding: 30, backgroundColor: 'gray'}}>
+    <div style={{ padding: 30, backgroundColor: 'gray' }}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/form" element={<Forma />} />
+        <Route path="/timer" element={
+          <div>
+            <button onClick={() => setIsShowTimer(!isShowTimer)}>Toggle Timer</button>
+            {isShowTimer && <Counter />}
+          </div>
+        } />
+        <Route path="/render" element={<RenderComponent />} />
+        <Route path="/to-do" element={
+          <div>
+            <button onClick={() => setIsMounted(!isMounted)}>Toggle Mount</button>
+            {isMounted && <MyToDo />}
+          </div>
+        } />
+        <Route path="/unmount" element={<UnmountComponent />} />
+        <Route path="/counter-hook" element={
+          <div>
+            <button onClick={increment}>Increment</button>
+            <button onClick={decrement}>Decrement</button>
+            <p>Counter: {counter}</p>
+          </div>
+        } />
+      </Routes>
 
       <div>
         <h1>Contacts</h1>
@@ -128,16 +143,18 @@ function App() {
           ) : (
             isContacts.map((contact) => (
               <li key={contact.id}>
-                {contact.name} {contact.LastName} - {contact.about}
+                {contact.name} {contact.lastName} - {contact.about}
                 <button onClick={() => deleteContactHandler(contact.id)}>Delete</button>
                 <button onClick={() => editContact(contact.id)}>Update</button>
               </li>
             ))
           )}
-      </ul>
-        <button onClick={addContacts} disabled={isPostLoading}>{isPostLoading ? 'Loading...' : 'Add'}</button>
+        </ul>
+        <button onClick={addContacts} disabled={isPostLoading}>
+          {isPostLoading ? 'Loading...' : 'Add'}
+        </button>
       </div>
-      
+
       <header className="App-header" ref={headerRef}>
         <p style={color ? styles.containerBlue : styles.containerGreen}>
           Edit <code>src/App.js</code> and save to reload.
@@ -153,41 +170,36 @@ function App() {
         </a>
       </header>
 
-      {element}
-      < HelloWorldComponent />
-      < MyClassComponent />
-      < Home />
-      < Forma />
+      {createElement('h1', { className: 'greeting' }, 'Hello')}
+      <HelloWorldComponent />
+      <MyClassComponent />
       <input type="text" value={input} onChange={onChangeHandler} />
       <ul>
         {item.map((element, index) => <li key={index}>{element} {index}</li>)}
       </ul>
       <button onClick={() => onClickHandler(input)}>Add New Element</button>
-      
       <RenderComponent />
-      {isShowTimer ?  <MyToDoClass /> : <MyToDo />}
-      <button onClick={() => setIsShowTimer((prev) => !prev)}>Show Timer</button>
+      {isShowTimer ? <MyToDoClass /> : <MyToDo />}
+      <button onClick={() => setIsShowTimer(!isShowTimer)}>Show Timer</button>
       {isMounted ? <UnmountComponent /> : <p>Text</p>}
-      <button onClick={() => setIsMounted((prev) => !prev)}>Unmount</button>
+      <button onClick={() => setIsMounted(!isMounted)}>Unmount</button>
       <p>Say Hello - {value}</p>
       <button onClick={handlerClick}>Hello</button>
       <Counter />
-      <input type="text" ref={inputRef}/>
+      <input type="text" ref={inputRef} />
       <button onClick={handleFocus}>Focus me</button>
       <MyMemoHook />
       <MyUseCallbackHook />
       <SecondChildComponent />
-      {isData.map((item, index) => {return (
-      <MyChildComponent item={item} key={index}/>
-      )})}
-      <button onClick = {() => setData([...isData, 6])}>On Click</button>
+      {isData.map((item, index) => (
+        <MyChildComponent item={item} key={index} />
+      ))}
+      <button onClick={() => setData([...isData, 6])}>On Click</button>
       <p>{counter}</p>
       <button onClick={increment}>+</button>
       <button onClick={decrement}>-</button>
       <ControlledForm />
-
     </div>
-    
   );
 }
 
