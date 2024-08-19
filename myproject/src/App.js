@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, createElement } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 
 // Імпорти компонентів
@@ -16,6 +16,10 @@ import MyMemoHook from './modules/MyMemoHook';
 import MyUseCallbackHook from './modules/MyUseCallbackHook';
 import MyChildComponent from './modules/MyChildComponent';
 import SecondChildComponent from './modules/SecondChildComponent';
+import HomePage from './modules/pages/HomePage';
+import About from './modules/pages/About';
+import ContactsPage from './modules/pages/ContactsPage';
+import NotFound from './modules/pages/NotFound';
 
 // Імпорти утиліт, хуків, API
 import { useCounter } from './modules/useCounter';
@@ -109,12 +113,18 @@ function App() {
     <div className="app-container">
       <header className="app-header">
         <nav>
-          <a href='/'>Home</a>
-          <a href='/form'>Form</a>
-          <a href='/Contacts'>Contacts</a>
+          <Link to='/'>Home</Link>
+          <Link to='/contacts'>Contacts</Link>
+          <Link to='/about'>About</Link>
         </nav>
       </header>
-      <main>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/contacts" element={<ContactsPage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/NotFound" element={<NotFound />} />
+      </Routes>
+      {/* <main>
       <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/form" element={<Forma />} />
@@ -140,7 +150,7 @@ function App() {
             </div>
           } />
         </Routes>
-      </main>
+      </main> */}
 
       <div className="contacts-container">
         <h1>Contacts</h1>
@@ -161,7 +171,7 @@ function App() {
           {isPostLoading ? 'Loading...' : 'Add'}
         </button>
       </div>
-
+          
       <header className="App-header" ref={headerRef}>
         <p style={color ? styles.containerBlue : styles.containerGreen}>
           Edit <code>src/App.js</code> and save to reload.
