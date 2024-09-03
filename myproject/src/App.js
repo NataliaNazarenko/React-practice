@@ -118,12 +118,15 @@ function App() {
           <Link to='/about'>About</Link>
         </nav>
       </header>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/contacts" element={<ContactsPage />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/NotFound" element={<NotFound />} />
-      </Routes>
+      <main>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/contacts" element={<ContactsPage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/NotFound" element={<NotFound />} />
+        </Routes>
+      </main>
+      
       {/* <main>
       <Routes>
           <Route path="/" element={<Home />} />
