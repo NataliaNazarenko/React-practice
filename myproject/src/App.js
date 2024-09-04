@@ -23,12 +23,11 @@ import NotFound from './modules/pages/NotFound';
 
 // Імпорти утиліт, хуків, API
 import { useCounter } from './modules/useCounter';
-import { addContact, deleteContact, updateContact } from './modules/api/api';
+
 // import useFetch from './modules/hooks/useFetch';
 
 // Імпорти стилізованих компонентів
 import ControlledForm from './modules/components/ControlledForms/ControlledForm';
-import Loader from './modules/components/Loader/Loader';
 
 const styles = {
   containerGreen: { color: 'green', fontSize: 30 },
@@ -43,10 +42,7 @@ function App() {
   const [isMounted, setIsMounted] = useState(false);
   const [isData, setData] = useState(["one", "two", "three", "four"]);
   const [color, setColor] = useState(false);
-  const [isContacts, setContacts] = useState([]);
-  const [isPostLoading, setIsPostLoading] = useState(false);
   const [value, setValue] = useState('');
-  const [loading, setLoading] = useState(false);
 
   const headerRef = useRef();
   const inputRef = useRef();
@@ -86,24 +82,6 @@ function App() {
     setColor(!color);
   };
 
-  const addContacts = async () => {
-    setIsPostLoading(true);
-    const newContact = { name: 'John Doe', lastName: 'Doe', about: 'I am a new contact' };
-    const addedContact = await addContact(newContact);
-    setContacts([...isContacts, addedContact]);
-    setIsPostLoading(false);
-  };
-
-  const deleteContactHandler = async (id) => {
-    await deleteContact(id);
-    setContacts(isContacts.filter(contact => contact.id !== id));
-  };
-
-  const editContact = async (id) => {
-    const newContact = { name: 'Sharma', lastName: 'Doe', about: 'I am a new contact' };
-    const updatedContact = await updateContact(id, newContact);
-    setContacts(isContacts.map(contact => contact.id === id ? updatedContact : contact));
-  };
 
   const handlerClick = () => {
     console.log('Button clicked');
@@ -114,8 +92,9 @@ function App() {
       <header className="app-header">
         <nav>
           <Link to='/'>Home</Link>
-          <Link to='/contacts'>Contacts</Link>
+          <Link to='/contacts' state={{from: "Home"}}>Contacts</Link>
           <Link to='/about'>About</Link>
+          <Link to='/form'>Forma</Link>
         </nav>
       </header>
       <main>
@@ -123,7 +102,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/contacts" element={<ContactsPage />} />
           <Route path="/about" element={<About />} />
-          <Route path="/NotFound" element={<NotFound />} />
+          <Route path="/form" element={<Forma />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       
@@ -154,28 +134,8 @@ function App() {
           } />
         </Routes>
       </main> */}
-
-      <div className="contacts-container">
-        <h1>Contacts</h1>
-        <ul>
-          {loading ? (
-            <Loader loading={loading} />
-          ) : (
-            isContacts.map((contact) => (
-              <li key={contact.id}>
-                {contact.name} {contact.lastName} - {contact.about}
-                <button className="contact-btn" onClick={() => deleteContactHandler(contact.id)}>Delete</button>
-                <button className="contact-btn" onClick={() => editContact(contact.id)}>Update</button>
-              </li>
-            ))
-          )}
-        </ul>
-        <button className="add-contact-btn" onClick={addContacts} disabled={isPostLoading}>
-          {isPostLoading ? 'Loading...' : 'Add'}
-        </button>
-      </div>
           
-      <header className="App-header" ref={headerRef}>
+      <div className="App-header" ref={headerRef}>
         <p style={color ? styles.containerBlue : styles.containerGreen}>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -183,7 +143,7 @@ function App() {
         <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
           Learn React
         </a>
-      </header>
+      </div>
 
       {createElement('h1', { className: 'greeting' }, 'Hello')}
       <HelloWorldComponent />

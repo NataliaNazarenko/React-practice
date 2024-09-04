@@ -17,9 +17,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     // <QueryClientProvider client={queryClient}></QueryClientProvider>  при використанні бібліотеки react-query, необхідно обгорнути в QueryClientProvider основний компонент App
     <BrowserRouter>
-    <React.StrictMode>
-       <App />
-    </React.StrictMode>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
     </BrowserRouter>
 );
 
