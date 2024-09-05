@@ -20,6 +20,7 @@ import HomePage from './modules/pages/HomePage';
 import About from './modules/pages/About';
 import ContactsPage from './modules/pages/ContactsPage';
 import NotFound from './modules/pages/NotFound';
+import Layout from './modules/components/Layout/Layout';
 
 // Імпорти утиліт, хуків, API
 import { useCounter } from './modules/useCounter';
@@ -89,21 +90,17 @@ function App() {
 
   return (
     <div className="app-container">
-      <header className="app-header">
-        <nav>
-          <Link to='/'>Home</Link>
-          <Link to='/contacts' state={{from: "Home"}}>Contacts</Link>
-          <Link to='/about'>About</Link>
-          <Link to='/form'>Forma</Link>
-        </nav>
-      </header>
+      
       <main>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path='/' element={<Layout />}>
+          <Route index element={<HomePage />} />
           <Route path="/contacts" element={<ContactsPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/form" element={<Forma />} />
           <Route path="*" element={<NotFound />} />
+          </Route>
+          
         </Routes>
       </main>
       
