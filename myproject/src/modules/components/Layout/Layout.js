@@ -1,14 +1,16 @@
-import { Link, Outlet } from "react-router-dom";
+import { Outlet, NavLink } from "react-router-dom";
 
 const Layout = () => {
+    const getActiveLink = ({isActive}) => (isActive ? 'active-link' : '');
+
     return (
         <>
             <header className="app-header">
                 <nav>
-                <Link to='/'>Home</Link>
-                <Link to='/contacts' state={{from: "Home"}}>Contacts</Link>
-                <Link to='/about'>About</Link>
-                <Link to='/form'>Forma</Link>
+                <NavLink to='/' className={getActiveLink}>Home</NavLink>
+                <NavLink to='/contacts' state={{from: "Home"}} className={getActiveLink}>Contacts</NavLink>
+                <NavLink to='/about' className={getActiveLink}>About</NavLink>
+                <NavLink to='/form' style={({isActive}) => ({color: isActive ? 'red' : 'none'})}>Forma</NavLink>
                 </nav>
             </header>
             <main>

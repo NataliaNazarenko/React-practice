@@ -94,7 +94,7 @@ function App() {
       <main>
         <Routes>
           <Route path='/' element={<Layout />}>
-          <Route index element={<HomePage />} />
+          <Route index element={<Home />} />
           <Route path="/contacts" element={<ContactsPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/form" element={<Forma />} />
