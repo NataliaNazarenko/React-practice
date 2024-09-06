@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { addContact, deleteContact, updateContact } from '../api/api';
 import Loader from '../components/Loader/Loader';
@@ -39,6 +40,7 @@ export default function ContactsPage() {
         isContacts.map((contact) => (
           <li key={contact.id}>
             {contact.name} {contact.lastName} - {contact.about}
+            <Link to={`${contact.id}`}>Details</Link>
             <button className="contact-btn" onClick={() => deleteContactHandler(contact.id)}>Delete</button>
             <button className="contact-btn" onClick={() => editContact(contact.id)}>Update</button>
           </li>

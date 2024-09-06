@@ -21,6 +21,7 @@ import About from './modules/pages/About';
 import ContactsPage from './modules/pages/ContactsPage';
 import NotFound from './modules/pages/NotFound';
 import Layout from './modules/components/Layout/Layout';
+import SingleContact from './modules/pages/Contact/SingleContact';
 
 // Імпорти утиліт, хуків, API
 import { useCounter } from './modules/useCounter';
@@ -96,6 +97,7 @@ function App() {
           <Route path='/' element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/contacts" element={<ContactsPage />} />
+          <Route path="/contacts/:id" element={<SingleContact />} />
           <Route path="/about" element={<About />} />
           <Route path="/form" element={<Forma />} />
           <Route path="*" element={<NotFound />} />
