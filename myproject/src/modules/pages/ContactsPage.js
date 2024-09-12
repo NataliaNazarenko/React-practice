@@ -1,14 +1,15 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { addContact, deleteContact, updateContact } from '../api/api';
 import Loader from '../components/Loader/Loader';
 
-export default function ContactsPage() {
+const ContactsPage = () => {
     const [isContacts, setContacts] = useState([]);
     const [isPostLoading, setIsPostLoading] = useState(false);
     const [loading, setLoading] = useState(false);
     const location = useLocation();
+    const navigate = useNavigate();
+
 
     const addContacts = async () => {
         setIsPostLoading(true);
@@ -29,10 +30,12 @@ export default function ContactsPage() {
         setContacts(isContacts.map(contact => contact.id === id ? updatedContact : contact));
     };
 
+    console.log(location);
     console.log(location.state);
 
     return <div className="contacts-container">
     <h1>Contacts</h1>
+    <button onClick={() => navigate('/')}>Go HomePage</button>
     <ul>
       {loading ? (
         <Loader loading={loading} />
@@ -51,4 +54,6 @@ export default function ContactsPage() {
       {isPostLoading ? 'Loading...' : 'Add'}
     </button>
   </div>;
-}
+};
+
+export default ContactsPage;

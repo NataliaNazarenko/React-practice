@@ -1,10 +1,10 @@
-import { useState, useEffect, useRef, createElement } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { useState, useEffect, useRef, createElement, lazy, Suspense } from 'react';
+import { Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
 import './App.css';
 
 // Імпорти компонентів
-import Home from './modules/Home';
-import Forma from './modules/Forma';
+// import Home from './modules/Home';
+// import Forma from './modules/Forma';
 import HelloWorldComponent from './modules/HelloWorldComponent';
 import MyClassComponent from './modules/MyClassComponent';
 import MyToDo from './modules/MyToDo';
@@ -17,11 +17,11 @@ import MyUseCallbackHook from './modules/MyUseCallbackHook';
 import MyChildComponent from './modules/MyChildComponent';
 import SecondChildComponent from './modules/SecondChildComponent';
 import HomePage from './modules/pages/HomePage';
-import About from './modules/pages/About';
-import ContactsPage from './modules/pages/ContactsPage';
-import NotFound from './modules/pages/NotFound';
-import Layout from './modules/components/Layout/Layout';
-import SingleContact from './modules/pages/Contact/SingleContact';
+// import About from './modules/pages/About';
+// import ContactsPage from './modules/pages/ContactsPage';
+// import NotFound from './modules/pages/NotFoundPage';
+// import Layout from './modules/components/Layout/Layout';
+// import SingleContact from './modules/pages/Contact/SingleContact';
 
 // Імпорти утиліт, хуків, API
 import { useCounter } from './modules/useCounter';
@@ -30,11 +30,20 @@ import { useCounter } from './modules/useCounter';
 
 // Імпорти стилізованих компонентів
 import ControlledForm from './modules/components/ControlledForms/ControlledForm';
+import Loader from './modules/components/Loader/Loader';
 
 const styles = {
   containerGreen: { color: 'green', fontSize: 30 },
   containerBlue: { color: 'blue', fontSize: 30 }
 };
+
+const Home = lazy(() => import('./modules/Home'));
+const About = lazy(() => import('./modules/pages/About'));
+const ContactsPage = lazy(() => import('./modules/pages/ContactsPage'));
+const NotFoundPage = lazy(() => import('./modules/pages/NotFoundPage'));
+const Layout = lazy(() => import('./modules/components/Layout/Layout'));
+const Forma = lazy(() => import('./modules/Forma'));
+const SingleContact = lazy(() => import('./modules/pages/Contact/SingleContact'));
 
 function App() {
   // Стан
@@ -45,6 +54,9 @@ function App() {
   const [isData, setData] = useState(["one", "two", "three", "four"]);
   const [color, setColor] = useState(false);
   const [value, setValue] = useState('');
+  const location = useLocation();
+
+  console.log(location);
 
   const headerRef = useRef();
   const inputRef = useRef();
@@ -93,6 +105,7 @@ function App() {
     <div className="app-container">
       
       <main>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path='/' element={<Layout />}>
           <Route index element={<Home />} />
@@ -100,10 +113,11 @@ function App() {
           <Route path="/contacts/:id" element={<SingleContact />} />
           <Route path="/about" element={<About />} />
           <Route path="/form" element={<Forma />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/404" element={<NotFoundPage />} />
+          <Route path="*" element={<Navigate to="/404" />} />
           </Route>
-          
         </Routes>
+      </Suspense>
       </main>
       
       {/* <main>
