@@ -110,21 +110,23 @@ function App() {
     <div className="app-container">
       
       <main>
-        <Suspense fallback={<Loader />}>
+      <Suspense fallback={<Loader />}>
           <Routes>
             <Route path='/' element={<Layout />}>
               <Route index element={<Home />} />
+              <Route path="/login" element={<LoginPage setIsAuthorized={setIsAuthorized} />} />
               <Route path="/about" element={<About />} />
               <Route path="/form" element={<Forma />} />
               <Route path="/404" element={<NotFoundPage />} />
-              <Route path="/login" element={<LoginPage setIsAuthorized={setIsAuthorized} />} /> {/* Маршрут для логіну */}
               <Route path="*" element={<Navigate to="/404" />} />
-
-              {/* Приватні маршрути */}
-              <Route element={<PrivateRoutes isAuthorized={isAuthorized} />}>
-                <Route path="/contacts" element={<ContactsPage />} />
-                <Route path="/contacts/:id" element={<SingleContact />} />
-              </Route>
+              <Route path="/contacts" element={
+                <PrivateRoutes isAuthorized={isAuthorized}>
+                  <ContactsPage />
+                </PrivateRoutes>
+              } />
+              <Route path="/contacts/:id" element={<PrivateRoutes isAuthorized={isAuthorized}>
+                <SingleContact />
+              </PrivateRoutes>} />
             </Route>
           </Routes>
         </Suspense>

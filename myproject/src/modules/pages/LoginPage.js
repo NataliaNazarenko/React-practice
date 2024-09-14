@@ -3,25 +3,36 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginPage = ({ setIsAuthorized }) => {
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // Простий приклад авторизації
-    if (username === 'admin' && password === '1234') {
-      setIsAuthorized(true);
-      navigate('/'); // Переадресація на головну сторінку після логіну
-    } else {
-      alert('Невірний логін або пароль');
+    // Перевірка на коректність імейлу
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      setError('Введіть коректний імейл');
+      return;
     }
+
+    if (username.trim() === '') {
+      setError('Введіть ім’я користувача');
+      return;
+    }
+
+    // Якщо ім'я та імейл коректні
+    setIsAuthorized(true);
+    navigate('/contacts'); // Переадресація на сторінку contacts після логіну
   };
 
   return (
     <div>
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         <label>
           Username:
           <input
@@ -32,11 +43,11 @@ const LoginPage = ({ setIsAuthorized }) => {
         </label>
         <br />
         <label>
-          Password:
+          Email:
           <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </label>
         <br />

@@ -1,16 +1,17 @@
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet, NavLink } from 'react-router-dom';
 
-const Layout = () => {
-    const getActiveLink = ({isActive}) => (isActive ? 'active-link' : '');
+const Layout = ({ isAuthorized }) => {
+    const getActiveLink = ({ isActive }) => (isActive ? 'active-link' : '');
 
     return (
         <>
             <header className="app-header">
                 <nav>
-                <NavLink to='/' className={getActiveLink}>Home</NavLink>
-                <NavLink to='/contacts' state={{from: "Home"}} className={getActiveLink}>Contacts</NavLink>
-                <NavLink to='/about' className={getActiveLink}>About</NavLink>
-                <NavLink to='/form' style={({isActive}) => ({color: isActive ? 'red' : 'none'})}>Forma</NavLink>
+                    <NavLink to="/" className={getActiveLink}>Home</NavLink>
+                    {isAuthorized && <NavLink to="/contacts" className={getActiveLink}>Contacts</NavLink>}
+                    <NavLink to="/login" className={getActiveLink}>Login</NavLink>
+                    <NavLink to="/about" className={getActiveLink}>About</NavLink>
+                    <NavLink to="/form" style={({ isActive }) => ({ color: isActive ? 'red' : 'none' })}>Forma</NavLink>
                 </nav>
             </header>
             <main>
@@ -18,7 +19,7 @@ const Layout = () => {
             </main>
             <footer className="app-footer">Footer</footer>
         </>
-    )
+    );
 };
 
-export default Layout
+export default Layout;
