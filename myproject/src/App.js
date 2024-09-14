@@ -22,6 +22,8 @@ import HomePage from './modules/pages/HomePage';
 // import NotFound from './modules/pages/NotFoundPage';
 // import Layout from './modules/components/Layout/Layout';
 // import SingleContact from './modules/pages/Contact/SingleContact';
+import PrivateRoutes from './modules/components/PrivateRoutes/PrivateRoutes';
+// import LoginPage from './modules/pages/LoginPage';
 
 // Імпорти утиліт, хуків, API
 import { useCounter } from './modules/useCounter';
@@ -44,6 +46,7 @@ const NotFoundPage = lazy(() => import('./modules/pages/NotFoundPage'));
 const Layout = lazy(() => import('./modules/components/Layout/Layout'));
 const Forma = lazy(() => import('./modules/Forma'));
 const SingleContact = lazy(() => import('./modules/pages/Contact/SingleContact'));
+const LoginPage = lazy(() => import('./modules/pages/LoginPage'));
 
 function App() {
   // Стан
@@ -55,6 +58,8 @@ function App() {
   const [color, setColor] = useState(false);
   const [value, setValue] = useState('');
   const location = useLocation();
+  const [loginUser, setLoginUser] = useState({});
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
   console.log(location);
 
@@ -105,19 +110,24 @@ function App() {
     <div className="app-container">
       
       <main>
-      <Suspense fallback={<Loader />}>
-        <Routes>
-          <Route path='/' element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/contacts" element={<ContactsPage />} />
-          <Route path="/contacts/:id" element={<SingleContact />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/form" element={<Forma />} />
-          <Route path="/404" element={<NotFoundPage />} />
-          <Route path="*" element={<Navigate to="/404" />} />
-          </Route>
-        </Routes>
-      </Suspense>
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route path='/' element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/form" element={<Forma />} />
+              <Route path="/404" element={<NotFoundPage />} />
+              <Route path="/login" element={<LoginPage setIsAuthorized={setIsAuthorized} />} /> {/* Маршрут для логіну */}
+              <Route path="*" element={<Navigate to="/404" />} />
+
+              {/* Приватні маршрути */}
+              <Route element={<PrivateRoutes isAuthorized={isAuthorized} />}>
+                <Route path="/contacts" element={<ContactsPage />} />
+                <Route path="/contacts/:id" element={<SingleContact />} />
+              </Route>
+            </Route>
+          </Routes>
+        </Suspense>
       </main>
       
       {/* <main>
