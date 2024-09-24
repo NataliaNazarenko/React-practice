@@ -530,11 +530,10 @@ function DataLoader() {
 export default DataLoader;
 ```
 
-Переваги використання react-query
-Автоматичне управління станом завантаження та помилок
-Кешування даних для зменшення кількості запитів
-Простий та зрозумілий API
-Цей README файл надає базову інформацію про роботу з HTTP запитами та REST API в React, а також про використання бібліотеки react-query для оптимізації процесу роботи з запитами.
+Переваги використання react-query:
+- Автоматичне управління станом завантаження та помилок
+- Кешування даних для зменшення кількості запитів
+- Простий та зрозумілий API
 
 ## Урок 11: Реакт роутинг, частина 1
 У цьому уроці ми розглянемо основи роботи з бібліотекою React Router, включаючи базовий роутинг, вкладені роути та використання важливих компонентів.
@@ -692,4 +691,75 @@ const LazyRoute = React.lazy(() => import('./LazyRoute'));
 <Routes>
   <Route path="/lazy" element={<LazyRoute />} />
 </Routes>
+```
+## Урок 13: Стейт менеджмент, useContext, Бібліотека Redux (Частина 1)
+
+## 1. useContext
+
+useContext — це хук у React, який дозволяє спрощено ділитися станом (state) між компонентами без необхідності передавати пропси через кожен рівень компонентів. Це корисно для уникнення "prop drilling" і створення глобального стану для певної частини програми.
+
+## Приклад використання
+
+```jsx
+import React, { useContext } from 'react';
+
+const MyContext = React.createContext();
+
+const Component = () => {
+  const value = useContext(MyContext);
+  return <div>{value}</div>;
+};
+```
+## 2. Найпопулярніші стейт менеджмент бібліотеки
+
+Redux: найпоширеніша бібліотека для керування станом в React-програмах.
+MobX: робить акцент на реактивності та простоті, зручний для невеликих проєктів.
+Zustand: мінімалістична бібліотека з простим API для керування станом.
+Recoil: експериментальна бібліотека від Facebook, яка підтримує асинхронні стани і атомарність даних.
+
+## 3. Вступ до бібліотеки Redux, Redux Toolkit
+
+Redux — це бібліотека для керування глобальним станом у програмах. Вона заснована на концепції єдиного джерела істини (Single Source of Truth) і працює за принципом dispatch/action/reducer для оновлення стану.
+
+Redux Toolkit — це набір інструментів для спрощення використання Redux. Включає зручні утиліти для створення редюсерів, екшенів та налаштування стану.
+
+## 4. Базове налаштування Redux Toolkit
+
+Крок 1: Встановлення залежностей:
+
+```jsx
+npm install @reduxjs/toolkit react-redux
+```
+Крок 2: Створення Redux сховища за допомогою configureStore:
+
+## Приклад використання
+
+```jsx
+import { configureStore } from '@reduxjs/toolkit';
+
+const store = configureStore({
+  reducer: {
+    // додайте ваші редюсери тут
+  },
+});
+
+export default store;
+```
+Крок 3: Додавання Redux Provider до React-програми:
+
+## Приклад використання
+
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import store from './store';
+import App from './App';
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
 ```
