@@ -8,11 +8,11 @@ import reportWebVitals from './reportWebVitals';
 //   QueryClientProvider,
 // } from 'react-query'
 import {BrowserRouter} from "react-router-dom";
-import {createRoot} from "react-dom/client";
+// import {createRoot} from "react-dom/client";
 
 
 // const queryClient = new QueryClient()
-
+const contextValue = "Hello World";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     // <QueryClientProvider client={queryClient}></QueryClientProvider>  при використанні бібліотеки react-query, необхідно обгорнути в QueryClientProvider основний компонент App
