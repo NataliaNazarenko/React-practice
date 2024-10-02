@@ -1,11 +1,14 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
-const LoginPage = ({ setIsAuthorized }) => {
+const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  const {setIsAuthorized} = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();

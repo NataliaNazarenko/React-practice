@@ -117,17 +117,17 @@ function App() {
             <Routes>
               <Route path='/' element={<Layout />}>
                 <Route index element={<Home />} />
-                <Route path="/login" element={<LoginPage setIsAuthorized={setIsAuthorized} />} />
+                <Route path="/login" element={<LoginPage/>} />
                 <Route path="/about" element={<About />} />
                 <Route path="/form" element={<Forma />} />
                 <Route path="/404" element={<NotFoundPage />} />
                 <Route path="*" element={<Navigate to="/404" />} />
                 <Route path="/contacts" element={
-                  <PrivateRoutes isAuthorized={isAuthorized}>
+                  <PrivateRoutes>
                     <ContactsPage />
                   </PrivateRoutes>
                 } />
-                <Route path="/contacts/:id" element={<PrivateRoutes isAuthorized={isAuthorized}>
+                <Route path="/contacts/:id" element={<PrivateRoutes>
                   <SingleContact />
                 </PrivateRoutes>} />
               </Route>

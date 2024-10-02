@@ -1,7 +1,12 @@
+import { useContext } from 'react';
+import { AuthContext } from '../../../context/AuthContext';
 import { Outlet, NavLink } from 'react-router-dom';
 
-const Layout = ({ isAuthorized }) => {
+
+
+const Layout = () => {
     const getActiveLink = ({ isActive }) => (isActive ? 'active-link' : '');
+    const {isAuthorized} = useContext(AuthContext);
 
     return (
         <>
