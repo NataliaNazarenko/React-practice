@@ -763,3 +763,161 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
+## Урок 14: README для Бібліотеки Redux (Частина 2)
+
+## 1. createSlice()
+createSlice() — це функція з Redux Toolkit, яка спрощує створення ред'юсерів та дій Redux в одному об'єкті. Вона автоматично генерує створювачі дій і типи дій, що зменшує кількість шаблонного коду.
+
+## Приклад використання
+
+```jsx
+import { createSlice } from '@reduxjs/toolkit';
+
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: { value: 0 },
+  reducers: {
+    increment: (state) => { state.value += 1 },
+    decrement: (state) => { state.value -= 1 }
+  }
+});
+
+export const { increment, decrement } = counterSlice.actions;
+export default counterSlice.reducer;
+```
+## 2. configureStore()
+configureStore() — це функція Redux Toolkit, що налаштовує Redux стор із розумними за замовчуванням параметрами, такими як підтримка Redux DevTools та спрощена інтеграція з middleware.
+
+## Приклад використання
+
+```jsx
+import { configureStore } from '@reduxjs/toolkit';
+import counterReducer from './counterSlice';
+
+const store = configureStore({
+  reducer: {
+    counter: counterReducer,
+  }
+});
+
+export default store;
+```
+## 3. useDispatch()
+useDispatch() — це хук із React-Redux, який дозволяє виконувати дії (dispatch actions) всередині компонента.
+
+## Приклад використання
+
+```jsx
+import { useDispatch } from 'react-redux';
+import { increment } from './counterSlice';
+
+const CounterComponent = () => {
+  const dispatch = useDispatch();
+
+  return (
+    <button onClick={() => dispatch(increment())}>
+      Збільшити
+    </button>
+  );
+};
+```
+## 4. useSelector()
+useSelector() — це хук із React-Redux, який дозволяє вибирати частину стану (state) з Redux стору.
+
+## Приклад використання
+
+```jsx
+import { useSelector } from 'react-redux';
+
+const CounterDisplay = () => {
+  const count = useSelector((state) => state.counter.value);
+
+  return <div>Лічильник: {count}</div>;
+};
+```
+## 5. Рекомендована структура папок
+Щоб організувати логіку Redux, рекомендується використовувати таку структуру проєкту:
+
+## Приклад використання
+
+```jsx
+src/
+|-- app/
+|   |-- store.js         # Конфігурація Redux стору
+|
+|-- features/
+|   |-- counter/
+|       |-- counterSlice.js   # Логіка слайсу лічильника
+|       |-- CounterComponent.js # Компонент, що використовує логіку лічильника
+|
+|-- hooks/
+|   |-- useCustomHook.js # Кастомні хуки, якщо потрібно
+|
+|-- services/            # API сервіси, асинхронна логіка
+```
+## 6. Робота з асинхронними операціями
+У Redux для обробки побічних ефектів (таких як виклики API) використовується middleware. Найпоширеніший підхід — це використання createAsyncThunk() для обробки асинхронної логіки, наприклад, отримання даних із сервера.
+
+## Приклад використання
+
+```jsx
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
+export const fetchUserData = createAsyncThunk(
+  'user/fetchUserData',
+  async (userId) => {
+    const response = await fetch(`/api/user/${userId}`);
+    return response.json();
+  }
+);
+
+const userSlice = createSlice({
+  name: 'user',
+  initialState: { user: null, status: 'idle' },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUserData.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchUserData.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.status = 'succeeded';
+      })
+      .addCase(fetchUserData.rejected, (state) => {
+        state.status = 'failed';
+      });
+  }
+});
+
+export default userSlice.reducer;
+```
+## 7. createAsyncThunk()
+createAsyncThunk() — це функція з Redux Toolkit, що спрощує процес обробки асинхронної логіки та автоматично диспетчить дії життєвого циклу (pending, fulfilled, rejected) залежно від статусу асинхронної операції.
+
+## Приклад використання
+
+```jsx
+export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
+  const response = await fetch('/api/posts');
+  return response.json();
+});
+
+// У слайсі обробляємо pending, fulfilled і rejected дії автоматично.
+const postsSlice = createSlice({
+  name: 'posts',
+  initialState: { posts: [], status: 'idle' },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchPosts.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchPosts.fulfilled, (state, action) => {
+        state.posts = action.payload;
+        state.status = 'succeeded';
+      })
+      .addCase(fetchPosts.rejected, (state) => {
+        state.status = 'failed';
+      });
+  }
+});
+```
