@@ -1,31 +1,27 @@
 import { useNavigate } from "react-router-dom";
-import { counterSlice } from "../../redux/counter/counterSlice"
-import { useState } from "react";
+import { useDispatch } from "react-redux"
+import { increment, decrement, incrementByAmount } from "../../redux/counter/counterSlice";
 
 export default function About() {
-    const [counter, setCounter] = useState(0);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handlerIncrement = () => {
-        setCounter((prevState) => prevState + 1); 
+       dispatch(increment());
     };
 
     const handlerDecrement = () => {
-        if (counter === 0) {
-            return;
-        };
-
-        setCounter((prevState) => prevState - 1); 
+        dispatch(decrement());
     };
 
     const handlerIncrementByAmount = (amount) => {
-        setCounter((prevState) => prevState + amount);
+        dispatch(incrementByAmount(5));
     };
     
     return <>
         <h2>About Component</h2>
         <button onClick={() => navigate('/')}>Go HomePage</button>
-        <p>Counter: {counter}</p>
+        {/* <p>Counter: {counter}</p> */}
         <button onClick={handlerIncrement}>Increment</button>
         <button onClick={handlerDecrement}>Decrement</button>
         <button onClick={() => handlerIncrementByAmount(5)}>Increment by 5</button>
