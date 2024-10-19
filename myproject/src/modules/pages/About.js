@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { increment, decrement, incrementByAmount } from "../../redux/counter/counterSlice";
+import { counterSelector } from "../../redux/counter/counterSelectors";
 
 export default function About() {
     const dispatch = useDispatch();
-    const counterValue = useSelector((state) => state.counter.value);
+    const counterValue = useSelector(counterSelector);
     const navigate = useNavigate();
 
     const handlerIncrement = () => {
