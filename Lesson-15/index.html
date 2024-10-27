@@ -67,7 +67,39 @@
     </p>
     <h2>Середовище розробки</h2>
     <p>Налаштування середовища розробки залежить від вашої операційної системи
-        нам потрібно зайти. на https://reactnative.dev/docs/environment-setup
+        нам потрібно зайти на https://reactnative.dev/docs/environment-setup
         та обрати потрібну операційну систему та платформу на яку ми налаштовуємо.
     </p>
+    <p>Рекомендуємо встановити Node і Watchman за допомогою Homebrew. <br>
+        Виконайте такі команди в терміналі після встановлення Homebrew: <br>
+        brew install node <br>
+        brew install watchman
+    </p>
+    <p>Якщо ви вже встановили Node у своїй системі, переконайтеся, що це Node 14 або
+        новіша версія.
+        Watchman — це інструмент Facebook для спостереження за змінами у файловій
+        системі. Настійно рекомендується встановити його для кращої продуктивності.
+    </p>
+    <p>Рекомендуємо встановити дистрибутив OpenJDK під назвою Azul Zulu за
+        допомогою Homebrew. Виконайте такі команди в терміналі після встановлення
+        Homebrew:
+    </p>
+    <p>brew tap homebrew/cask-versions <br>
+        brew install --cask zulu11
+    </p>
+    <p># Get path to where cask was installed to double-click installer
+        brew info --cask zulu11
+    </p>
+    <p>Після встановлення JDK оновіть змінну середовища JAVA_HOME. Якщо ви виконали
+        наведені вище дії, JDK, імовірно, буде за адресою
+        /Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
+    </p>
+    <p>Дистрибутив Zulu OpenJDK пропонує JDK для Intel і M1 Mac. Це гарантує, що ваші
+        збірки будуть швидшими на M1 Mac порівняно з використанням JDK на основі Intel.
+    </p>
+    <p>Якщо ви вже встановили JDK у своїй системі, ми рекомендуємо JDK 11. Ви можете
+        зіткнутися з проблемами під час використання вищих версій JDK.
+    </p>
+    <h2>Середовище розробки Android</h2>
+    
 </html>
