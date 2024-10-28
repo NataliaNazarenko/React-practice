@@ -1,12 +1,15 @@
 import { useContext } from 'react';
 import { AuthContext } from '../../../context/AuthContext';
 import { Outlet, NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Loader from '../Loader/Loader';
 
 
 
 const Layout = () => {
     const getActiveLink = ({ isActive }) => (isActive ? 'active-link' : '');
     const {isAuthorized} = useContext(AuthContext);
+    const isFetching = useSelector((state) => state.contacts.loading);
 
     return (
         <>
@@ -20,7 +23,7 @@ const Layout = () => {
                 </nav>
             </header>
             <main>
-                <Outlet />
+                {isFetching ? <Loader /> : <Outlet />}
             </main>
             <footer className="app-footer">Footer</footer>
         </>

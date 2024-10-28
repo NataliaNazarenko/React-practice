@@ -31,3 +31,9 @@ export const getContactById = async (id) => {
     
     return contact.data;
 };
+
+export const getAllContacts = async () => {
+    const contacts = await axios.get('contacts');
+    
+    return contacts.data;
+};

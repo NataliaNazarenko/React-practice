@@ -25,9 +25,11 @@ import HomePage from './modules/pages/HomePage';
 import PrivateRoutes from './modules/components/PrivateRoutes/PrivateRoutes';
 // import LoginPage from './modules/pages/LoginPage';
 import { AuthContext } from './context/AuthContext';
+import { fetchUsers } from './redux/users/userSlice';
 
 // Імпорти утиліт, хуків, API
 import { useCounter } from './modules/useCounter';
+import { useDispatch, useSelector } from 'react-redux';
 
 // import useFetch from './modules/hooks/useFetch';
 
@@ -67,11 +69,16 @@ function App() {
 
   const headerRef = useRef();
   const inputRef = useRef();
+  const dispatch = useDispatch();
 
   const { counter, increment, decrement } = useCounter();
   // const { data: contacts, loading } = useFetch('contacts');
 
   // Ефекти
+  useEffect (() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
+
   useEffect(() => {
     console.log('Component mounted');
   }, []);

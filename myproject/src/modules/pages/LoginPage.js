@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';import { useContext } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
 const LoginPage = () => {
@@ -7,8 +9,11 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const contactsList = JSON.parse(localStorage.getItem('contacts')) || [];
+  const getContactsList = useSelector((state) => state.contacts.contacts);
 
-  const {setIsAuthorized} = useContext(AuthContext);
+  const { setIsAuthorized } = useContext(AuthContext);
+  const isAuthenticated = useSelector((state) => state.auth?.isAuthenticated || false);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -29,6 +34,15 @@ const LoginPage = () => {
     // Якщо ім'я та імейл коректні
     setIsAuthorized(true);
     navigate('/contacts'); // Переадресація на сторінку contacts після логіну
+    localStorage.setItem('username', username);
+    localStorage.setItem('email', email);
+    localStorage.setItem('contacts', JSON.stringify(contactsList));
+  };
+
+  const onFinish = () => {
+    localStorage.setItem('contacts', JSON.stringify(contactsList));
+    setIsAuthorized(true);
+    navigate('/contacts'); // Переадресація на сторінку contacts після завершення реєстрації
   };
 
   return (
@@ -55,6 +69,8 @@ const LoginPage = () => {
         </label>
         <br />
         <button type="submit">Login</button>
+        <button type="button" onClick={onFinish}>Finish Registration</button>
+        <p>Don't have an account? <a href="/register">Register</a></p>
       </form>
     </div>
   );
