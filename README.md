@@ -981,3 +981,109 @@ npm install @react-native-async-storage/async-storage
 
 [React Native Офіційна документація](https://reactnative.dev/docs/getting-started)
 [AsyncStorage для React Native на GitHub](https://github.com/react-native-async-storage/async-storage)
+
+## Урок 17: Використання стилів у React Native
+
+React Native підтримує стилі, подібні до CSS у веб-розробці, проте синтаксис та підхід мають свої особливості. Стилі в React Native задаються у вигляді JavaScript-об'єктів, а всі стилі визначаються з використанням властивостей `StyleSheet`, `inline-стилів` чи зовнішніх бібліотек.
+
+## 1. Стилізація з використанням StyleSheet
+
+`StyleSheet` - це вбудований метод React Native для створення стилів. Використання цього методу підвищує продуктивність, оскільки він оптимізує об'єкти стилів під час рендерингу.
+
+## Приклад використання
+
+```javascript
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
+const MyComponent = () => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Привіт, React Native!</Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+  },
+  text: {
+    color: '#333',
+    fontSize: 18,
+  },
+});
+
+export default MyComponent;
+```
+## 2. Inline-стилі
+
+Inline-стилі надаються безпосередньо в JSX та корисні для простих і унікальних налаштувань стилів для конкретного компонента.
+
+## Приклад використання
+
+```javascript
+<View style={{ backgroundColor: 'blue', padding: 10 }}>
+  <Text style={{ color: 'white', fontSize: 16 }}>Привіт, React Native!</Text>
+</View>
+```
+## 3. Flexbox у React Native
+
+React Native підтримує Flexbox для розташування елементів на екрані. Flexbox допомагає створювати адаптивні інтерфейси, які змінюють свій вигляд в залежності від розміру екрану.
+
+Основні властивості Flexbox у React Native:
+
+flexDirection
+justifyContent
+alignItems
+
+## Приклад використання
+
+```javascript
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+});
+```
+## 4. Динамічні стилі
+
+Ви можете динамічно змінювати стилі залежно від стану або пропсів. Це особливо корисно для адаптивних компонентів.
+
+## Приклад використання
+
+```javascript
+const MyComponent = ({ isActive }) => {
+  return (
+    <View style={[styles.container, isActive && styles.activeContainer]}>
+      <Text style={styles.text}>Стилізований текст</Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: { padding: 10 },
+  activeContainer: { backgroundColor: 'lightgreen' },
+});
+```
+## 5. Зовнішні бібліотеки стилів
+
+Для більш комплексних стилів у React Native існують спеціальні бібліотеки. Найпопулярніші:
+
+1. Styled Components - дозволяє створювати стилізовані компоненти з JavaScript.
+    npm install styled-components
+2. React Native Elements - бібліотека, що пропонує багато готових UI-компонентів.
+
+3. NativeBase - набір компонентів, адаптованих до React Native.
+
+## Корисні ресурси
+
+[Документація React Native Styling](https://uk.legacy.reactjs.org/docs/faq-styling.html)
+[Flexbox у React Native](https://reactnative.dev/docs/flexbox)
+[Styled Components](https://styled-components.com)
