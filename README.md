@@ -1087,3 +1087,163 @@ const styles = StyleSheet.create({
 [Документація React Native Styling](https://uk.legacy.reactjs.org/docs/faq-styling.html)
 [Flexbox у React Native](https://reactnative.dev/docs/flexbox)
 [Styled Components](https://styled-components.com)
+
+## Урок 18: Навігація та Redux Toolkit у React Native
+
+## Вимоги
+Перед початком уроку переконайтесь, що:
+- У вас встановлені [Node.js](https://nodejs.org/), [React Native CLI](https://reactnative.dev/docs/environment-setup), та емулятор (або реальний пристрій).
+- Ви знайомі з основами React, Redux Toolkit, та React Native.
+
+---
+
+## Встановлення бібліотек
+Для реалізації функціоналу необхідно встановити наступні бібліотеки:
+
+### React Navigation
+```bash
+npm install @react-navigation/native react-native-screens react-native-safe-area-context react-native-gesture-handler react-native-reanimated react-native-vector-icons
+npm install @react-navigation/stack
+```
+### Redux Toolkit
+
+```bash
+npm install @reduxjs/toolkit react-redux
+```
+
+## 1. Структура проекту
+Рекомендуємо використовувати таку структуру:
+```scss
+/src
+  /components  // UI-компоненти
+  /screens     // Екрани додатка
+  /redux       // Redux-логіка
+    store.js
+    slice.js
+  App.js       // Головний файл додатка
+```
+## 2. Основний код
+
+### 1. Налаштування Redux
+
+Створення slice:
+
+```javascript
+// src/redux/slice.js
+import { createSlice } from '@reduxjs/toolkit';
+
+const initialState = {
+  userData: null,
+};
+
+const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    setUserData: (state, action) => {
+      state.userData = action.payload;
+    },
+  },
+});
+
+export const { setUserData } = userSlice.actions;
+export default userSlice.reducer;
+```
+Налаштування store:
+```javascript
+// src/redux/store.js
+import { configureStore } from '@reduxjs/toolkit';
+import userReducer from './slice';
+
+export const store = configureStore({
+  reducer: {
+    user: userReducer,
+  },
+});
+```
+## 2. Налаштування навігації
+Створення стеку навігації:
+```javascript
+// src/App.js
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
+import HomeScreen from './screens/HomeScreen';
+import DetailsScreen from './screens/DetailsScreen';
+
+const Stack = createStackNavigator();
+
+export default function App() {
+  return (
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Details" component={DetailsScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
+  );
+}
+```
+## 3. Створення екранів
+Головний екран:
+```javascript
+// src/screens/HomeScreen.js
+import React from 'react';
+import { View, Text, Button } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { setUserData } from '../redux/slice';
+
+export default function HomeScreen({ navigation }) {
+  const dispatch = useDispatch();
+
+  const handleNavigate = () => {
+    dispatch(setUserData({ name: 'John Doe', age: 30 }));
+    navigation.navigate('Details', { message: 'Hello from Home!' });
+  };
+
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Головний Екран</Text>
+      <Button title="Перейти до деталей" onPress={handleNavigate} />
+    </View>
+  );
+}
+```
+Екран деталей:
+```javascript
+// src/screens/DetailsScreen.js
+import React from 'react';
+import { View, Text } from 'react-native';
+import { useSelector } from 'react-redux';
+
+export default function DetailsScreen({ route }) {
+  const { message } = route.params;
+  const userData = useSelector((state) => state.user.userData);
+
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Екран деталей</Text>
+      <Text>Повідомлення: {message}</Text>
+      <Text>Ім'я користувача: {userData?.name}</Text>
+      <Text>Вік: {userData?.age}</Text>
+    </View>
+  );
+}
+```
+### Результат
+Після запуску додатка:
+
+Ви побачите головний екран із кнопкою "Перейти до деталей".
+Після натискання кнопки:
+Відбудеться навігація до екрану "Деталі".
+Дані будуть передані через навігацію (route) та збережені у Redux.
+
+### Запуск проекту
+```bash
+npx react-native run-android   # Для Android
+npx react-native run-ios       # Для iOS
+```
